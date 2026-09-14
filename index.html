@@ -8,11 +8,9 @@
 <meta name="theme-color" content="#0a1929">
 <meta name="apple-mobile-web-app-capable" content="yes">
 
-<!-- Icon asli tetap (URL tidak diubah) -->
 <link rel="icon" type="image/jpeg" href="https://z-cdn-media.chatglm.cn/files/a9034caf-356d-4bc1-94cc-8a8a6cdabda8.jpeg?auth_key=1885421763-a7c43330c1a1416eb022c4c5741700f3-0-f0f048866e6b0749b36f764e9a6bedb9">
 <link rel="apple-touch-icon" href="https://z-cdn-media.chatglm.cn/files/a9034caf-356d-4bc1-94cc-8a8a6cdabda8.jpeg?auth_key=1885421763-a7c43330c1a1416eb022c4c5741700f3-0-f0f048866e6b0749b36f764e9a6bedb9">
 
-<!-- Optimasi: preconnect paralel + font swap -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://z-cdn-media.chatglm.cn">
@@ -20,11 +18,6 @@
 
 <style>
 /* ===== Font Awesome Subset: hanya ikon yang dipakai ===== */
-/* Icon mapping tetap sama: fa-th-large, fa-book, fa-cube, fa-running, fa-feather-alt,
-   fa-palette, fa-user-friends, fa-map-pin, fa-link, fa-sort-numeric-up, fa-bars,
-   fa-sync-alt, fa-microphone, fa-volume-up, fa-trash, fa-expand-alt, fa-search,
-   fa-check-circle, fa-exclamation-circle, fa-info-circle, fa-chevron-left,
-   fa-chevron-right, fa-star, fa-language, fa-redo */
 @font-face{
   font-family:'Font Awesome 6 Free';
   font-style:normal;font-weight:900;
@@ -57,15 +50,19 @@
 .fa-star::before{content:"\f005"}
 .fa-language::before{content:"\f1ab"}
 .fa-redo::before{content:"\f01e"}
+.fa-lock::before{content:"\f023"}
+.fa-unlock::before{content:"\f09c"}
+.fa-plus::before{content:"\f067"}
+.fa-edit::before{content:"\f044"}
+.fa-user-shield::before{content:"\f505"}
+.fa-sign-out-alt::before{content:"\f2f5"}
 .fa-spin{animation:fa-spin 1s linear infinite}
 @keyframes fa-spin{to{transform:rotate(360deg)}}
 
-/* ===== Utility class pengganti Tailwind (hanya yang dipakai) ===== */
 .hidden{display:none!important}
 .sm\:inline{display:inline}
 @media(min-width:640px){.hidden.sm\:inline{display:inline!important}}
 
-/* ===== TEMA BIRU HOLOGRAM ===== */
 :root{
   --bg-deep:#0a1929;
   --bg-forest:#0d2137;
@@ -163,6 +160,7 @@ body{
 .nav-item.active .nav-badge{background:rgba(0,212,255,0.22);color:var(--cyan)}
 .nav-item .nav-sub{font-size:9px;font-weight:400;color:rgba(0,212,255,0.45);margin-left:2px;letter-spacing:0.3px}
 .nav-item.active .nav-sub{color:rgba(0,212,255,0.7)}
+.nav-item.admin-locked{opacity:.85}
 #overlay{
   position:fixed;inset:0;z-index:35;background:rgba(0,0,0,0.45);
   backdrop-filter:blur(3px);opacity:0;pointer-events:none;transition:opacity .3s;
@@ -204,6 +202,14 @@ body{
   background:rgba(0,212,255,0.24);
   border-color:rgba(0,212,255,0.45);
   color:#fff;
+}
+.topbar-btn.admin-btn{
+  background:rgba(0,242,254,0.10);border-color:rgba(0,242,254,0.30);
+  color:var(--gold);
+}
+.topbar-btn.admin-btn:hover{
+  background:rgba(0,242,254,0.20);
+  box-shadow:0 0 14px rgba(0,242,254,0.4);
 }
 #content{padding:24px 20px 36px;max-width:1200px}
 .dash-hero{text-align:center;padding:30px 16px 24px}
@@ -289,7 +295,7 @@ body{
 .word-table tbody tr:last-child td{border-bottom:none}
 .word-table .col-duri{color:var(--cyan);font-weight:600;text-shadow:0 0 10px rgba(0,212,255,0.35)}
 .word-table .col-no{color:rgba(0,212,255,0.45);font-size:12px;width:45px}
-.word-table .col-actions{width:110px;text-align:center;white-space:nowrap}
+.word-table .col-actions{width:130px;text-align:center;white-space:nowrap}
 .word-table .col-category{width:110px}
 .cat-badge{
   display:inline-block;padding:2px 10px;border-radius:12px;
@@ -302,6 +308,7 @@ body{
   padding:5px 6px;border-radius:5px;transition:all .2s;font-size:13px;
 }
 .action-btn:hover{color:var(--cyan);background:rgba(0,212,255,0.10);text-shadow:0 0 8px var(--cyan)}
+.action-btn.edit:hover{color:var(--gold);background:rgba(0,242,254,0.10);text-shadow:0 0 8px var(--gold)}
 .action-btn.delete:hover{color:#ff5577;background:rgba(255,85,119,0.10);text-shadow:0 0 8px rgba(255,85,119,0.6)}
 .pagination{display:flex;justify-content:center;align-items:center;gap:6px;margin-top:16px;flex-wrap:wrap}
 .page-btn{
@@ -560,6 +567,174 @@ body{
   font-size:12px;font-family:'Outfit';transition:all .2s;
 }
 .speak-btn:hover{background:rgba(0,212,255,0.20);box-shadow:0 0 12px rgba(0,212,255,0.4)}
+
+/* ============================================================
+   ADMIN: modal login PIN
+============================================================ */
+#admin-login-modal{
+  position:fixed;inset:0;z-index:110;display:flex;align-items:center;justify-content:center;
+  background:rgba(5,15,30,0.65);backdrop-filter:blur(8px);
+  opacity:0;pointer-events:none;transition:opacity .3s;
+}
+#admin-login-modal.show{opacity:1;pointer-events:all}
+.admin-login-content{
+  background:rgba(12,32,58,0.97);
+  border:1px solid rgba(0,242,254,0.32);border-radius:20px;padding:36px 32px;
+  max-width:380px;width:90%;text-align:center;
+  transform:scale(.9);transition:transform .3s;
+  box-shadow:0 20px 60px rgba(0,242,254,0.28),0 0 80px rgba(0,242,254,0.18);
+}
+#admin-login-modal.show .admin-login-content{transform:scale(1)}
+.admin-lock-circle{
+  width:80px;height:80px;margin:0 auto 18px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,#00f2fe 0%,#4facfe 55%,#00d4ff 100%);
+  color:#0a1929;font-size:30px;
+  box-shadow:0 0 30px rgba(0,242,254,0.55);
+}
+.admin-login-title{
+  font-family:'Playfair Display',serif;font-weight:700;font-size:22px;
+  color:var(--text-dark);margin-bottom:6px;
+  text-shadow:0 0 18px rgba(0,242,254,0.4);
+}
+.admin-login-sub{font-size:12px;color:var(--text-muted);margin-bottom:22px}
+.admin-pin-input{
+  width:100%;padding:14px 16px;background:rgba(10,28,50,0.85);
+  border:1px solid rgba(0,242,254,0.25);border-radius:10px;
+  color:var(--text-dark);font-family:'Outfit';font-size:22px;
+  letter-spacing:8px;text-align:center;outline:none;
+  transition:all .25s;
+}
+.admin-pin-input:focus{
+  border-color:var(--gold);
+  box-shadow:0 0 0 3px rgba(0,242,254,0.22),0 0 24px rgba(0,242,254,0.35);
+}
+.admin-login-actions{
+  display:flex;gap:10px;margin-top:20px;
+}
+.admin-btn{
+  flex:1;padding:11px 16px;border-radius:10px;cursor:pointer;
+  font-family:'Outfit';font-size:13px;font-weight:600;transition:all .2s;
+  border:1px solid transparent;
+}
+.admin-btn.cancel{
+  background:rgba(0,212,255,0.08);border-color:rgba(0,212,255,0.22);color:var(--text-dark);
+}
+.admin-btn.cancel:hover{background:rgba(0,212,255,0.18);color:var(--cyan)}
+.admin-btn.submit{
+  background:var(--holo-gradient);color:#0a1929;
+  box-shadow:0 0 18px rgba(0,242,254,0.45);
+}
+.admin-btn.submit:hover{transform:translateY(-2px);box-shadow:0 6px 22px rgba(0,242,254,0.6)}
+.admin-error{
+  margin-top:14px;font-size:12px;color:#ff7a95;
+  min-height:16px;
+}
+
+/* ============================================================
+   ADMIN: modal tambah / edit kata
+============================================================ */
+#word-form-modal{
+  position:fixed;inset:0;z-index:95;display:flex;align-items:center;justify-content:center;
+  background:rgba(5,15,30,0.55);backdrop-filter:blur(6px);
+  opacity:0;pointer-events:none;transition:opacity .3s;
+}
+#word-form-modal.show{opacity:1;pointer-events:all}
+.word-form-content{
+  background:rgba(12,32,58,0.97);
+  border:1px solid rgba(0,242,254,0.28);border-radius:18px;
+  padding:26px 26px 22px;max-width:480px;width:92%;
+  transform:scale(.92);transition:transform .3s;
+  box-shadow:0 20px 60px rgba(0,242,254,0.25),0 0 80px rgba(0,242,254,0.15);
+  max-height:90vh;overflow-y:auto;
+}
+#word-form-modal.show .word-form-content{transform:scale(1)}
+.word-form-title{
+  font-family:'Playfair Display',serif;font-weight:700;font-size:20px;
+  color:var(--text-dark);margin-bottom:4px;
+  text-shadow:0 0 18px rgba(0,242,254,0.4);
+}
+.word-form-sub{font-size:11px;color:var(--text-muted);margin-bottom:20px}
+.form-field{margin-bottom:14px}
+.form-field label{
+  display:block;font-size:10px;font-weight:600;text-transform:uppercase;
+  letter-spacing:1px;color:var(--gold);margin-bottom:5px;
+}
+.form-field input,.form-field select{
+  width:100%;padding:10px 12px;background:rgba(10,28,50,0.85);
+  border:1px solid rgba(0,242,254,0.22);border-radius:8px;color:var(--text-dark);
+  font-family:'Outfit';font-size:14px;outline:none;transition:all .2s;
+}
+.form-field input:focus,.form-field select:focus{
+  border-color:var(--gold);
+  box-shadow:0 0 0 2px rgba(0,242,254,0.22);
+}
+.form-field select option{background:#0a1929;color:#e0f7ff}
+.word-form-actions{display:flex;gap:10px;margin-top:20px}
+
+/* ============================================================
+   ADMIN: halaman dashboard admin
+============================================================ */
+.admin-hero{
+  background:rgba(15,35,60,0.66);
+  border:1px solid rgba(0,242,254,0.22);
+  border-radius:16px;padding:22px 24px;margin-bottom:20px;
+  position:relative;overflow:hidden;box-shadow:var(--shadow-subtle);
+}
+.admin-hero::before{
+  content:'';position:absolute;top:-40px;right:-40px;width:140px;height:140px;
+  border-radius:50%;background:radial-gradient(circle,rgba(0,242,254,0.25),transparent 70%);
+}
+.admin-hero h2{
+  font-family:'Playfair Display',serif;font-size:22px;font-weight:700;
+  color:var(--text-dark);margin-bottom:4px;
+  text-shadow:0 0 16px rgba(0,242,254,0.4);
+}
+.admin-hero p{color:var(--text-muted);font-size:13px}
+.admin-hero .admin-session-info{
+  display:flex;gap:14px;flex-wrap:wrap;margin-top:12px;
+  font-size:11px;color:rgba(0,242,254,0.7);
+}
+.admin-hero .admin-session-info span{
+  background:rgba(0,242,254,0.08);padding:3px 10px;border-radius:8px;
+  border:1px solid rgba(0,242,254,0.18);
+}
+.admin-stats{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));
+  gap:10px;margin-bottom:20px;
+}
+.stat-card{
+  background:rgba(15,35,60,0.66);
+  border:1px solid rgba(0,212,255,0.18);
+  border-radius:12px;padding:14px;text-align:center;
+  transition:all .25s;
+}
+.stat-card:hover{
+  border-color:rgba(0,242,254,0.4);
+  transform:translateY(-2px);
+  box-shadow:0 6px 22px rgba(0,242,254,0.2);
+}
+.stat-card .stat-num{
+  font-size:22px;font-weight:700;color:var(--gold);
+  text-shadow:0 0 14px rgba(0,242,254,0.5);
+}
+.stat-card .stat-label{
+  font-size:10px;text-transform:uppercase;letter-spacing:1px;
+  color:var(--text-muted);margin-top:4px;
+}
+.admin-toolbar{
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:10px;margin-bottom:14px;
+}
+.admin-add-btn{
+  padding:10px 18px;border-radius:10px;
+  background:var(--holo-gradient);color:#0a1929;
+  border:none;cursor:pointer;font-family:'Outfit';font-size:13px;
+  font-weight:700;display:flex;align-items:center;gap:8px;
+  transition:all .2s;box-shadow:0 0 18px rgba(0,242,254,0.45);
+}
+.admin-add-btn:hover{transform:translateY(-2px);box-shadow:0 6px 22px rgba(0,242,254,0.6)}
+.admin-add-btn i{font-size:12px}
 </style>
 </head>
 <body>
@@ -572,8 +747,8 @@ body{
   <div class="sidebar-logo">
     <img class="sidebar-logo-img" src="https://z-cdn-media.chatglm.cn/files/a9034caf-356d-4bc1-94cc-8a8a6cdabda8.jpeg?auth_key=1885421763-a7c43330c1a1416eb022c4c5741700f3-0-f0f048866e6b0749b36f764e9a6bedb9" alt="Logo DkEDurl" decoding="async">
     <div style="font-family:'Playfair Display',serif;font-weight:700;font-size:14px;color:var(--text-dark);">kEDurl</div>
-    <div style="font-size:10px;color:var(--text-muted);margin-top:1px;">Kamus English Duri Indonesia</div>
-    <div style="font-size:10px;color:var(--text-muted);margin-top:1px;">Darmawati, S.Pd., M.Pd.</div>
+    <div style="font-size:10px;color:var(--text-muted);margin-top:1px;">DARMAWATI, S.Pd.,M.Pd.</div>
+    <div style="font-size:10px;color:var(--text-muted);margin-top:1px;">SMPN 1 ANGGERAJA, ENREKANG</div>
   </div>
   <div class="nav-section">
     <div class="nav-section-label">Utama</div>
@@ -591,6 +766,10 @@ body{
     <div class="nav-item" data-page="kataHubung" tabindex="0" role="button"><i class="fas fa-link"></i> Kata Hubung <span class="nav-sub">(Conjunction)</span> <span class="nav-badge" id="badge-kataHubung">0</span></div>
     <div class="nav-item" data-page="angka" tabindex="0" role="button"><i class="fas fa-sort-numeric-up"></i> Angka <span class="nav-sub">(Numbers)</span> <span class="nav-badge" id="badge-angka">0</span></div>
   </div>
+  <div class="nav-section">
+    <div class="nav-section-label">Admin</div>
+    <div class="nav-item admin-locked" id="nav-admin" data-page="admin" tabindex="0" role="button"><i class="fas fa-user-shield"></i> Panel Admin <span class="nav-badge" id="badge-admin"><i class="fas fa-lock" style="font-size:9px;"></i></span></div>
+  </div>
   <div style="flex:1"></div>
   <div style="padding:12px 16px;border-top:1px solid rgba(0,212,255,0.10);font-size:10px;color:rgba(0,212,255,0.4);text-align:center;">DkEDurl v2.0 — Cloud</div>
 </aside>
@@ -604,6 +783,7 @@ body{
     <h1 id="page-title">Dashboard</h1>
     <button class="topbar-btn" id="btn-refresh" aria-label="Refresh data"><i class="fas fa-sync-alt"></i></button>
     <button class="topbar-btn voice-btn" id="topbar-voice" aria-label="Pencarian suara"><i class="fas fa-microphone"></i> <span class="hidden sm:inline">Suara</span></button>
+    <button class="topbar-btn admin-btn" id="topbar-admin" aria-label="Panel Admin"><i class="fas fa-user-shield"></i> <span class="hidden sm:inline">Admin</span></button>
   </header>
   <div id="content"></div>
 </main>
@@ -621,24 +801,97 @@ body{
   <div class="detail-content" id="detail-inner"></div>
 </div>
 
+<!-- ADMIN: modal login PIN -->
+<div id="admin-login-modal" role="dialog" aria-label="Login admin" aria-modal="true">
+  <div class="admin-login-content">
+    <div class="admin-lock-circle"><i class="fas fa-lock"></i></div>
+    <div class="admin-login-title">Panel Admin</div>
+    <div class="admin-login-sub">Masukkan PIN untuk melanjutkan</div>
+    <input type="password" id="admin-pin-input" class="admin-pin-input"
+           inputmode="numeric" maxlength="8" autocomplete="off" placeholder="• • • •">
+    <div class="admin-error" id="admin-error"></div>
+    <div class="admin-login-actions">
+      <button class="admin-btn cancel" id="admin-login-cancel">Batal</button>
+      <button class="admin-btn submit" id="admin-login-submit">Masuk</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN: modal tambah / edit kata -->
+<div id="word-form-modal" role="dialog" aria-label="Form kata" aria-modal="true">
+  <div class="word-form-content">
+    <div class="word-form-title" id="word-form-title">Tambah Kata</div>
+    <div class="word-form-sub" id="word-form-sub">Isi keempat kolom, lalu simpan</div>
+
+    <div class="form-field">
+      <label for="wf-duri">Duri</label>
+      <input type="text" id="wf-duri" autocomplete="off" placeholder="Kata dalam bahasa Duri">
+    </div>
+    <div class="form-field">
+      <label for="wf-indonesia">Indonesia</label>
+      <input type="text" id="wf-indonesia" autocomplete="off" placeholder="Padanan bahasa Indonesia">
+    </div>
+    <div class="form-field">
+      <label for="wf-english">English</label>
+      <input type="text" id="wf-english" autocomplete="off" placeholder="Padanan bahasa Inggris">
+    </div>
+    <div class="form-field">
+      <label for="wf-cat">Kategori</label>
+      <select id="wf-cat">
+        <option value="kataBenda">Kata Benda (Noun)</option>
+        <option value="kataKerja">Kata Kerja (Verb)</option>
+        <option value="kataKeterangan">Kata Keterangan (Adverb)</option>
+        <option value="kataSifat">Kata Sifat (Adjective)</option>
+        <option value="kataGanti">Kata Ganti (Pronoun)</option>
+        <option value="kataDepan">Kata Depan (Preposition)</option>
+        <option value="kataHubung">Kata Hubung (Conjunction)</option>
+        <option value="angka">Angka (Numbers)</option>
+      </select>
+    </div>
+
+    <div class="word-form-actions">
+      <button class="admin-btn cancel" id="word-form-cancel">Batal</button>
+      <button class="admin-btn submit" id="word-form-save">Simpan</button>
+    </div>
+  </div>
+</div>
+
 <div id="toast-container" aria-live="polite"></div>
 
 <script>
 /* ============================================================
-   KONFIGURASI
+   KONFIGURASI — SUPABASE
 ============================================================ */
-const API_URL = 'https://script.google.com/macros/s/AKfycbzMXPToLc_ZqvomFYAh8iGKhurFxdnWPNVH65gXSGtnyutG_f0ATycqcv_ZaEO1rCRoig/exec';
+const SUPABASE_URL      = 'https://ukarmhggjguvzjqsnvgo.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_rNX1qCtzNg4CCXDClCdCNQ_Z-rM749r';
+const SUPABASE_TABLE    = 'words';
+
+/* ============================================================
+   KONFIGURASI — ADMIN
+   PIN default: 1234 (ubah sesuka Anda)
+============================================================ */
+const ADMIN_PIN = '190218';
+
+/* Header standar Supabase REST */
+const SB_HEADERS = {
+  'apikey': SUPABASE_ANON_KEY,
+  'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+  'Content-Type': 'application/json'
+};
 
 /* ============================================================
    STATE
 ============================================================ */
 let ALL_WORDS = [];
-let WORDS_INDEX = {}; // cache index kata untuk detail (perbaikan performa)
+let WORDS_INDEX = {};
 let currentPage = 'dashboard';
 let isMobile = window.innerWidth <= 768;
 const PER_PAGE = 50;
 let currentFilterPage = 1;
 let isLoading = false;
+
+let ADMIN_LOGGED_IN = false;
+let ADMIN_EDIT_ID = null;
 
 /* ============================================================
    DOM REFS
@@ -658,6 +911,23 @@ const detailModal = document.getElementById('detail-modal');
 const detailInner = document.getElementById('detail-inner');
 const toastContainer = document.getElementById('toast-container');
 const btnRefresh = document.getElementById('btn-refresh');
+const topbarAdmin = document.getElementById('topbar-admin');
+const navAdmin = document.getElementById('nav-admin');
+const badgeAdmin = document.getElementById('badge-admin');
+const adminLoginModal = document.getElementById('admin-login-modal');
+const adminPinInput = document.getElementById('admin-pin-input');
+const adminError = document.getElementById('admin-error');
+const adminLoginCancel = document.getElementById('admin-login-cancel');
+const adminLoginSubmit = document.getElementById('admin-login-submit');
+const wordFormModal = document.getElementById('word-form-modal');
+const wordFormTitle = document.getElementById('word-form-title');
+const wordFormSub = document.getElementById('word-form-sub');
+const wfDuri = document.getElementById('wf-duri');
+const wfIndonesia = document.getElementById('wf-indonesia');
+const wfEnglish = document.getElementById('wf-english');
+const wfCat = document.getElementById('wf-cat');
+const wordFormCancel = document.getElementById('word-form-cancel');
+const wordFormSave = document.getElementById('word-form-save');
 
 /* ============================================================
    CATEGORY LABELS & ICONS & COLORS
@@ -665,21 +935,21 @@ const btnRefresh = document.getElementById('btn-refresh');
 const categoryLabels = {
   dashboard:'Dashboard', semuaKata:'Semua Kata', kataBenda:'Kata Benda',
   kataKerja:'Kata Kerja', kataKeterangan:'Kata Keterangan', kataSifat:'Kata Sifat',
-  kataGanti:'Kata Ganti', kataDepan:'Kata Depan', kataHubung:'Kata Hubung', angka:'Angka'
+  kataGanti:'Kata Ganti', kataDepan:'Kata Depan', kataHubung:'Kata Hubung', angka:'Angka',
+  admin:'Panel Admin'
 };
 const categoryIcons = {
   semuaKata:'fa-book', kataBenda:'fa-cube', kataKerja:'fa-running',
   kataKeterangan:'fa-feather-alt', kataSifat:'fa-palette', kataGanti:'fa-user-friends',
   kataDepan:'fa-map-pin', kataHubung:'fa-link', angka:'fa-sort-numeric-up'
 };
-/* Warna kategori — tetap kontras dengan tema biru hologram */
 const categoryColors = {
   kataBenda:'#00d4ff', kataKerja:'#4facfe', kataKeterangan:'#00f2fe', kataSifat:'#7fdfff',
   kataGanti:'#00d4ff', kataDepan:'#4facfe', kataHubung:'#00f2fe', angka:'#7fdfff'
 };
 
 /* ============================================================
-   UTILITAS — optimasi: reuse div untuk esc()
+   UTILITAS
 ============================================================ */
 const _escDiv = document.createElement('div');
 function esc(str){
@@ -711,7 +981,7 @@ function showToast(message, type){
 }
 
 /* ============================================================
-   PARTIKEL BACKGROUND — optimasi: kurangi jadi 8, pakai DocumentFragment
+   PARTIKEL BACKGROUND
 ============================================================ */
 (function(){
   const colors = ['rgba(0,212,255,0.22)','rgba(79,172,254,0.18)','rgba(0,242,254,0.15)'];
@@ -761,6 +1031,10 @@ document.querySelectorAll('.nav-item').forEach(function(item){
 
 function navigateTo(page){
   if(isLoading) return;
+  if(page === 'admin' && !ADMIN_LOGGED_IN){
+    openAdminLogin();
+    return;
+  }
   currentPage = page;
   pageTitle.textContent = categoryLabels[page] || 'Dashboard';
   document.querySelectorAll('.nav-item').forEach(function(n){ n.classList.remove('active'); });
@@ -782,7 +1056,7 @@ function updateBadges(){
   WORDS_INDEX = {};
   ALL_WORDS.forEach(function(w, idx){
     if(w.cat && counts.hasOwnProperty(w.cat)) counts[w.cat]++;
-    if(w.id !== undefined) WORDS_INDEX[w.id] = idx;
+    if(w.id !== undefined && w.id !== null) WORDS_INDEX[w.id] = idx;
   });
   document.getElementById('badge-semuaKata').textContent = ALL_WORDS.length;
   catKeys.forEach(function(k){
@@ -803,17 +1077,87 @@ function getDictionaryData(){
 }
 
 /* ============================================================
-   API CALLS — optimasi: cache-busting + timeout
+   NORMALISASI DATA SUPABASE
 ============================================================ */
+const CAT_ALIAS = {
+  katabenda:'kataBenda', katakerja:'kataKerja', kataketerangan:'kataKeterangan',
+  katasifat:'kataSifat', kataganti:'kataGanti', katadepan:'kataDepan',
+  katahubung:'kataHubung', angka:'angka',
+  noun:'kataBenda', verb:'kataKerja', adverb:'kataKeterangan',
+  adjective:'kataSifat', pronoun:'kataGanti', preposition:'kataDepan',
+  conjunction:'kataHubung', number:'angka', numbers:'angka', numeral:'angka',
+  kb:'kataBenda', kk:'kataKerja', ket:'kataKeterangan', ks:'kataSifat',
+  kg:'kataGanti', kd:'kataDepan', kh:'kataHubung', num:'angka',
+  benda:'kataBenda', kerja:'kataKerja', keterangan:'kataKeterangan',
+  sifat:'kataSifat', ganti:'kataGanti', depan:'kataDepan',
+  hubung:'kataHubung', bilangan:'angka'
+};
+
+function normalizeCat(raw){
+  if(raw === null || raw === undefined) return '';
+  const compact = String(raw).trim().toLowerCase().replace(/[\s_\-\.\,\/]+/g,'');
+  if(!compact) return '';
+  if(CAT_ALIAS[compact]) return CAT_ALIAS[compact];
+  for(const k in CAT_ALIAS){
+    if(compact.indexOf(k) !== -1) return CAT_ALIAS[k];
+  }
+  return compact;
+}
+
+function normalizeRow(row){
+  return {
+    id:        row.id,
+    duri:      row.duri || '',
+    indonesia: row.indonesia || '',
+    english:   row.english || '',
+    cat:       normalizeCat(
+                 row.cat !== undefined && row.cat !== null ? row.cat :
+                 row.kategori !== undefined && row.kategori !== null ? row.kategori :
+                 row.category !== undefined && row.category !== null ? row.category : ''
+               )
+  };
+}
+
+/* ============================================================
+   API CALLS — SUPABASE REST
+============================================================ */
+const SUPABASE_BATCH = 1000;
+const SUPABASE_MAX_PAGES = 50;
+
 async function fetchWords(){
   try{
-    const controller = new AbortController();
-    const timer = setTimeout(function(){ controller.abort(); }, 15000);
-    const res = await fetch(API_URL, { signal: controller.signal });
-    clearTimeout(timer);
-    const json = await res.json();
-    if(!json.success) throw new Error(json.message || 'Gagal memuat data');
-    ALL_WORDS = json.data || [];
+    let allRows = [];
+    let offset = 0;
+    let pageCount = 0;
+
+    while(pageCount < SUPABASE_MAX_PAGES){
+      const controller = new AbortController();
+      const timer = setTimeout(function(){ controller.abort(); }, 15000);
+      const url = SUPABASE_URL + '/rest/v1/' + SUPABASE_TABLE +
+                  '?select=*&order=id.asc&limit=' + SUPABASE_BATCH +
+                  '&offset=' + offset;
+      const res = await fetch(url, {
+        method: 'GET',
+        headers: SB_HEADERS,
+        signal: controller.signal
+      });
+      clearTimeout(timer);
+      if(!res.ok){
+        const errText = await res.text();
+        throw new Error('Supabase error ' + res.status + ': ' + errText);
+      }
+      const rows = await res.json();
+      if(!Array.isArray(rows) || rows.length === 0) break;
+      allRows = allRows.concat(rows);
+      if(rows.length < SUPABASE_BATCH) break;
+      offset += rows.length;
+      pageCount++;
+    }
+
+    logCatSample(allRows);
+    console.log('[KEDurl] Total baris terambil dari Supabase:', allRows.length);
+
+    ALL_WORDS = allRows.map(normalizeRow);
     updateBadges();
     return ALL_WORDS;
   }catch(error){
@@ -827,13 +1171,15 @@ async function deleteWordFromDB(id){
   try{
     if(!confirm('Yakin ingin menghapus kata ini?')) return;
     isLoading = true;
-    const res = await fetch(API_URL, {
-      method:'POST',
-      body: JSON.stringify({action:'delete', id:id}),
-      headers:{'Content-Type':'application/json'}
+    const url = SUPABASE_URL + '/rest/v1/' + SUPABASE_TABLE + '?id=eq.' + encodeURIComponent(id);
+    const res = await fetch(url, {
+      method: 'DELETE',
+      headers: Object.assign({}, SB_HEADERS, { 'Prefer': 'return=minimal' })
     });
-    const json = await res.json();
-    if(!json.success) throw new Error(json.message || 'Gagal menghapus kata');
+    if(!res.ok){
+      const errText = await res.text();
+      throw new Error('Supabase error ' + res.status + ': ' + errText);
+    }
     await fetchWords();
     renderPage(currentPage);
     showToast('Kata berhasil dihapus', 'success');
@@ -844,12 +1190,64 @@ async function deleteWordFromDB(id){
   }
 }
 
+async function insertWordToDB(payload){
+  const url = SUPABASE_URL + '/rest/v1/' + SUPABASE_TABLE;
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: Object.assign({}, SB_HEADERS, { 'Prefer': 'return=representation' }),
+    body: JSON.stringify(payload)
+  });
+  if(!res.ok){
+    const errText = await res.text();
+    throw new Error('Supabase error ' + res.status + ': ' + errText);
+  }
+  return await res.json();
+}
+
+async function updateWordInDB(id, payload){
+  const url = SUPABASE_URL + '/rest/v1/' + SUPABASE_TABLE + '?id=eq.' + encodeURIComponent(id);
+  const res = await fetch(url, {
+    method: 'PATCH',
+    headers: Object.assign({}, SB_HEADERS, { 'Prefer': 'return=representation' }),
+    body: JSON.stringify(payload)
+  });
+  if(!res.ok){
+    const errText = await res.text();
+    throw new Error('Supabase error ' + res.status + ': ' + errText);
+  }
+  return await res.json();
+}
+
+let _catLogged = false;
+function logCatSample(rows){
+  if(_catLogged) return;
+  _catLogged = true;
+  try{
+    const seen = {};
+    rows.forEach(function(r){
+      const v = (r.cat !== undefined && r.cat !== null) ? String(r.cat)
+              : (r.kategori !== undefined && r.kategori !== null) ? String(r.kategori)
+              : (r.category !== undefined && r.category !== null) ? String(r.category) : '(kosong)';
+      seen[v] = (seen[v]||0) + 1;
+    });
+    const lines = Object.keys(seen).map(function(k){
+      return '  "' + k + '"  →  ' + seen[k] + ' baris';
+    });
+    console.log(
+      '\n===== [KEDurl] Nilai unik kolom "cat" dari Supabase =====\n' +
+      lines.join('\n') +
+      '\n=========================================================\n'
+    );
+  }catch(e){}
+}
+
 /* ============================================================
    RENDER
 ============================================================ */
 function renderPage(page){
   if(page === 'dashboard') renderDashboard();
   else if(page === 'semuaKata') renderAllWords();
+  else if(page === 'admin') renderAdmin();
   else renderCategory(page);
 }
 
@@ -1011,7 +1409,7 @@ function renderAllWords(filterQ, filterCat){
   const pageWords = words.slice(start, start + PER_PAGE);
 
   const catOptions = Object.keys(categoryLabels)
-    .filter(function(k){ return k !== 'dashboard'; })
+    .filter(function(k){ return k !== 'dashboard' && k !== 'admin'; })
     .map(function(k){
       return '<option value="' + k + '"' + (k === filterCat ? ' selected' : '') + '>' + categoryLabels[k] + '</option>';
     }).join('');
@@ -1096,7 +1494,6 @@ window.goPage = function(p, q, c){
   renderAllWords(q, c);
 };
 
-/* Detail by ID — pengganti JSON.stringify (lebih cepat) */
 window.showDetailById = function(id){
   const idx = WORDS_INDEX[id];
   if(idx !== undefined && ALL_WORDS[idx]) showDetail(ALL_WORDS[idx]);
@@ -1282,7 +1679,7 @@ voiceModal.addEventListener('click', function(e){ if(e.target === voiceModal){ s
 topbarVoice.addEventListener('click', startVoiceSearch);
 
 /* ============================================================
-   PENERJEMAH — optimasi: cache lowercase fields
+   PENERJEMAH
 ============================================================ */
 function doTranslate(){
   const text = (document.getElementById('tr-text').value || '').trim();
@@ -1317,6 +1714,205 @@ function doTranslate(){
 }
 
 /* ============================================================
+   ADMIN — LOGIN PIN
+============================================================ */
+function openAdminLogin(){
+  adminError.textContent = '';
+  adminPinInput.value = '';
+  adminLoginModal.classList.add('show');
+  setTimeout(function(){ adminPinInput.focus(); }, 150);
+}
+function closeAdminLogin(){
+  adminLoginModal.classList.remove('show');
+}
+function submitAdminLogin(){
+  const pin = (adminPinInput.value || '').trim();
+  if(pin === ADMIN_PIN){
+    ADMIN_LOGGED_IN = true;
+    badgeAdmin.innerHTML = '<i class="fas fa-unlock" style="font-size:9px;"></i>';
+    navAdmin.classList.remove('admin-locked');
+    closeAdminLogin();
+    showToast('Selamat datang, Admin', 'success');
+    navigateTo('admin');
+  }else{
+    adminError.textContent = 'PIN salah. Coba lagi.';
+    adminPinInput.value = '';
+    adminPinInput.focus();
+  }
+}
+adminLoginCancel.addEventListener('click', closeAdminLogin);
+adminLoginSubmit.addEventListener('click', submitAdminLogin);
+adminPinInput.addEventListener('keydown', function(e){
+  if(e.key === 'Enter') submitAdminLogin();
+});
+adminLoginModal.addEventListener('click', function(e){
+  if(e.target === adminLoginModal) closeAdminLogin();
+});
+topbarAdmin.addEventListener('click', function(){
+  if(ADMIN_LOGGED_IN) navigateTo('admin');
+  else openAdminLogin();
+});
+
+/* ============================================================
+   ADMIN — FORM TAMBAH / EDIT KATA
+============================================================ */
+function openWordForm(mode, word){
+  ADMIN_EDIT_ID = (mode === 'edit' && word) ? word.id : null;
+  if(mode === 'edit' && word){
+    wordFormTitle.textContent = 'Edit Kata';
+    wordFormSub.textContent = 'Ubah data lalu simpan perubahan';
+    wfDuri.value = word.duri || '';
+    wfIndonesia.value = word.indonesia || '';
+    wfEnglish.value = word.english || '';
+    wfCat.value = word.cat || 'kataBenda';
+  }else{
+    wordFormTitle.textContent = 'Tambah Kata';
+    wordFormSub.textContent = 'Isi keempat kolom, lalu simpan';
+    wfDuri.value = '';
+    wfIndonesia.value = '';
+    wfEnglish.value = '';
+    wfCat.value = 'kataBenda';
+  }
+  wordFormModal.classList.add('show');
+  setTimeout(function(){ wfDuri.focus(); }, 150);
+}
+function closeWordForm(){
+  wordFormModal.classList.remove('show');
+  ADMIN_EDIT_ID = null;
+}
+async function saveWordForm(){
+  const duri = (wfDuri.value || '').trim();
+  const indonesia = (wfIndonesia.value || '').trim();
+  const english = (wfEnglish.value || '').trim();
+  const cat = wfCat.value;
+
+  if(!duri || !indonesia || !english){
+    showToast('Semua kolom harus diisi', 'error');
+    return;
+  }
+
+  const payload = { duri: duri, indonesia: indonesia, english: english, cat: cat };
+
+  wordFormSave.disabled = true;
+  const originalLabel = wordFormSave.textContent;
+  wordFormSave.textContent = 'Menyimpan...';
+
+  try{
+    if(ADMIN_EDIT_ID !== null){
+      await updateWordInDB(ADMIN_EDIT_ID, payload);
+      showToast('Kata berhasil diperbarui', 'success');
+    }else{
+      await insertWordToDB(payload);
+      showToast('Kata berhasil ditambahkan', 'success');
+    }
+    closeWordForm();
+    await fetchWords();
+    renderPage(currentPage);
+  }catch(error){
+    showToast('Gagal menyimpan: ' + error.message, 'error');
+    console.error('Save error:', error);
+  }finally{
+    wordFormSave.disabled = false;
+    wordFormSave.textContent = originalLabel;
+  }
+}
+wordFormCancel.addEventListener('click', closeWordForm);
+wordFormSave.addEventListener('click', saveWordForm);
+wordFormModal.addEventListener('click', function(e){
+  if(e.target === wordFormModal) closeWordForm();
+});
+
+window.openEditWordById = function(id){
+  const idx = WORDS_INDEX[id];
+  const w = (idx !== undefined && ALL_WORDS[idx]) ? ALL_WORDS[idx] :
+            ALL_WORDS.filter(function(x){ return x.id === id; })[0];
+  if(w) openWordForm('edit', w);
+};
+
+/* ============================================================
+   ADMIN — HALAMAN DASHBOARD ADMIN
+============================================================ */
+function renderAdmin(){
+  if(!ADMIN_LOGGED_IN){
+    contentEl.innerHTML = '<div class="empty-state" style="padding:80px 20px;"><i class="fas fa-lock"></i><p>Anda belum login sebagai admin.</p><button class="page-btn" onclick="openAdminLogin()" style="margin-top:12px;"><i class="fas fa-lock"></i> Login Sekarang</button></div>';
+    return;
+  }
+
+  const catKeys = ['kataBenda','kataKerja','kataKeterangan','kataSifat','kataGanti','kataDepan','kataHubung','angka'];
+  const counts = {};
+  catKeys.forEach(function(k){ counts[k] = 0; });
+  ALL_WORDS.forEach(function(w){ if(w.cat && counts.hasOwnProperty(w.cat)) counts[w.cat]++; });
+
+  const totalWords = ALL_WORDS.length;
+
+  const sorted = ALL_WORDS.slice().sort(function(a,b){
+    const ia = (a.id === null || a.id === undefined) ? -1 : Number(a.id);
+    const ib = (b.id === null || b.id === undefined) ? -1 : Number(b.id);
+    return ib - ia;
+  });
+  const preview = sorted.slice(0, 30);
+
+  contentEl.innerHTML = '<div class="fade-in">' +
+    '<div class="admin-hero">' +
+    '<h2><i class="fas fa-user-shield" style="margin-right:8px;color:var(--gold);"></i>Panel Admin</h2>' +
+    '<p>Kelola daftar kata kamus: tambah, edit, dan hapus.</p>' +
+    '<div class="admin-session-info">' +
+    '<span><i class="fas fa-unlock" style="margin-right:4px;"></i> Sesi aktif</span>' +
+    '<span><i class="fas fa-book" style="margin-right:4px;"></i> ' + totalWords + ' kata di database</span>' +
+    '</div>' +
+    '</div>' +
+
+    '<div class="admin-stats">' +
+    '<div class="stat-card"><div class="stat-num">' + totalWords + '</div><div class="stat-label">Total Kata</div></div>' +
+    catKeys.map(function(k){
+      return '<div class="stat-card"><div class="stat-num">' + counts[k] + '</div><div class="stat-label">' + categoryLabels[k] + '</div></div>';
+    }).join('') +
+    '</div>' +
+
+    '<div class="admin-toolbar">' +
+    '<div style="font-size:12px;color:var(--text-muted);">30 kata terbaru (id tertinggi)</div>' +
+    '<button class="admin-add-btn" id="admin-add-btn"><i class="fas fa-plus"></i> Tambah Kata</button>' +
+    '</div>' +
+
+    '<div class="word-table-wrap"><table class="word-table"><thead><tr>' +
+    '<th style="width:45px;">No</th><th>Duri</th><th>Indonesia</th><th>English</th><th class="col-category">Kategori</th><th class="col-actions">Aksi</th>' +
+    '</tr></thead><tbody>' +
+    (preview.length ? preview.map(function(w, i){
+      const catColor = categoryColors[w.cat] || '#00d4ff';
+      const catLabel = categoryLabels[w.cat] || w.cat || '-';
+      return '<tr>' +
+        '<td class="col-no">' + (i + 1) + '</td>' +
+        '<td class="col-duri">' + esc(w.duri) + '</td>' +
+        '<td>' + esc(w.indonesia) + '</td>' +
+        '<td>' + esc(w.english) + '</td>' +
+        '<td class="col-category"><span class="cat-badge" style="background:' + catColor + '22;color:' + catColor + ';">' + esc(catLabel) + '</span></td>' +
+        '<td class="col-actions">' +
+        '<button class="action-btn edit" onclick="openEditWordById(' + w.id + ')" title="Edit"><i class="fas fa-edit"></i></button>' +
+        '<button class="action-btn" onclick="speakWord(\'' + sq(w.duri) + '\',\'id-ID\')" title="Ucapkan"><i class="fas fa-volume-up"></i></button>' +
+        '<button class="action-btn delete" onclick="deleteWordFromDB(' + w.id + ')" title="Hapus"><i class="fas fa-trash"></i></button>' +
+        '</td></tr>';
+    }).join('') : '<tr><td colspan="6" style="text-align:center;color:var(--text-muted);padding:20px;">Belum ada data</td></tr>') +
+    '</tbody></table></div>' +
+
+    '<div style="margin-top:20px;text-align:center;">' +
+    '<button class="page-btn" id="admin-logout-btn" style="padding:9px 20px;"><i class="fas fa-sign-out-alt"></i> Keluar dari Admin</button>' +
+    '</div>' +
+    '</div>';
+
+  const addBtn = document.getElementById('admin-add-btn');
+  if(addBtn) addBtn.addEventListener('click', function(){ openWordForm('add'); });
+
+  const logoutBtn = document.getElementById('admin-logout-btn');
+  if(logoutBtn) logoutBtn.addEventListener('click', function(){
+    ADMIN_LOGGED_IN = false;
+    badgeAdmin.innerHTML = '<i class="fas fa-lock" style="font-size:9px;"></i>';
+    navAdmin.classList.add('admin-locked');
+    showToast('Anda telah keluar dari mode admin', 'info');
+    navigateTo('dashboard');
+  });
+}
+
+/* ============================================================
    REFRESH
 ============================================================ */
 btnRefresh.addEventListener('click', async function(){
@@ -1343,6 +1939,8 @@ document.addEventListener('keydown', function(e){
   if(e.key === 'Escape'){
     if(voiceModal.classList.contains('show')){ stopListening(); voiceModal.classList.remove('show'); }
     if(detailModal.classList.contains('show')) closeDetail();
+    if(adminLoginModal.classList.contains('show')) closeAdminLogin();
+    if(wordFormModal.classList.contains('show')) closeWordForm();
   }
 });
 
