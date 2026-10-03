@@ -17,7 +17,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-/* ===== Font Awesome Subset: hanya ikon yang dipakai ===== */
+/* ===== Font Awesome Subset ===== */
 @font-face{
   font-family:'Font Awesome 6 Free';
   font-style:normal;font-weight:900;
@@ -56,6 +56,8 @@
 .fa-edit::before{content:"\f044"}
 .fa-user-shield::before{content:"\f505"}
 .fa-sign-out-alt::before{content:"\f2f5"}
+.fa-comment-dots::before{content:"\f4ad"}
+.fa-paper-plane::before{content:"\f1d8"}
 .fa-spin{animation:fa-spin 1s linear infinite}
 @keyframes fa-spin{to{transform:rotate(360deg)}}
 
@@ -735,6 +737,99 @@ body{
 }
 .admin-add-btn:hover{transform:translateY(-2px);box-shadow:0 6px 22px rgba(0,242,254,0.6)}
 .admin-add-btn i{font-size:12px}
+
+/* ============================================================
+   SARAN — Kotak Saran
+============================================================ */
+.saran-box{
+  background:rgba(15,35,60,0.66);
+  border:1px solid rgba(0,212,255,0.18);
+  border-radius:16px;padding:28px 24px;margin-top:10px;
+  box-shadow:var(--shadow-subtle);position:relative;overflow:hidden;
+}
+.saran-box::before{
+  content:'';position:absolute;top:-40px;right:-40px;width:130px;height:130px;
+  border-radius:50%;background:radial-gradient(circle,rgba(0,212,255,0.18),transparent 70%);
+  pointer-events:none;
+}
+.saran-box h2{
+  font-family:'Playfair Display',serif;font-size:22px;font-weight:700;
+  color:var(--text-dark);margin-bottom:4px;
+  text-shadow:0 0 16px rgba(0,212,255,0.4);
+}
+.saran-box .saran-sub{font-size:13px;color:var(--text-muted);margin-bottom:22px}
+.saran-field{margin-bottom:14px}
+.saran-field label{
+  display:block;font-size:10px;font-weight:600;text-transform:uppercase;
+  letter-spacing:1px;color:var(--cyan);margin-bottom:5px;
+}
+.saran-field input,.saran-field textarea{
+  width:100%;padding:11px 14px;background:rgba(10,28,50,0.85);
+  border:1px solid rgba(0,212,255,0.20);border-radius:9px;color:var(--text-dark);
+  font-family:'Outfit';font-size:14px;outline:none;transition:all .2s;
+}
+.saran-field input:focus,.saran-field textarea:focus{
+  border-color:var(--cyan);
+  box-shadow:0 0 0 2px var(--blue-glow);
+}
+.saran-field textarea{resize:vertical;min-height:100px}
+.saran-counter{
+  text-align:right;font-size:11px;color:var(--text-muted);margin-top:4px;
+  transition:color .2s;
+}
+.saran-counter.warn{color:#ffb74d}
+.saran-counter.over{color:#ff5577;font-weight:600}
+.saran-actions{display:flex;gap:10px;margin-top:8px;align-items:center;flex-wrap:wrap}
+.saran-send-btn{
+  padding:11px 24px;border-radius:10px;background:var(--holo-gradient);
+  border:none;color:#0a1929;font-family:'Outfit';font-size:13px;font-weight:700;
+  cursor:pointer;transition:all .2s;box-shadow:0 0 18px rgba(0,212,255,0.4);
+  display:flex;align-items:center;gap:8px;
+}
+.saran-send-btn:hover{transform:translateY(-2px);box-shadow:0 6px 22px rgba(0,212,255,0.55)}
+.saran-send-btn:disabled{opacity:.55;cursor:not-allowed;transform:none;box-shadow:none}
+.saran-success{
+  margin-top:16px;padding:16px 18px;border-radius:12px;
+  background:rgba(0,242,254,0.08);border:1px solid rgba(0,242,254,0.35);
+  color:var(--gold);font-size:15px;font-weight:600;text-align:center;
+  text-shadow:0 0 12px rgba(0,242,254,0.5);
+  display:none;animation:fadeIn .4s ease;
+}
+.saran-success.show{display:block}
+.saran-success i{margin-right:8px;font-size:18px}
+.saran-admin-list{margin-top:6px}
+.saran-admin-item{
+  background:rgba(10,28,50,0.72);
+  border:1px solid rgba(0,212,255,0.14);
+  border-radius:12px;padding:14px 16px;margin-bottom:10px;
+  transition:all .2s;
+}
+.saran-admin-item:hover{
+  border-color:rgba(0,242,254,0.35);
+  box-shadow:0 4px 18px rgba(0,242,254,0.15);
+}
+.saran-admin-meta{
+  display:flex;flex-wrap:wrap;gap:10px;align-items:center;
+  margin-bottom:8px;font-size:11px;color:var(--text-muted);
+}
+.saran-admin-meta .nama{color:var(--cyan);font-weight:600;font-size:13px}
+.saran-admin-meta .alamat{color:var(--text-muted)}
+.saran-admin-meta .waktu{margin-left:auto;color:rgba(0,212,255,0.5);font-size:10px}
+.saran-admin-text{
+  font-size:13px;color:var(--text-dark);line-height:1.55;
+  white-space:pre-wrap;word-break:break-word;
+}
+.saran-badge-count{
+  margin-left:auto;background:rgba(0,242,254,0.16);color:var(--gold);
+  font-size:10px;font-weight:700;padding:1px 8px;border-radius:8px;
+  border:1px solid rgba(0,242,254,0.3);
+}
+
+/* Sembunyikan badge kategori */
+#badge-semuaKata,
+#badge-kataBenda,#badge-kataKerja,#badge-kataKeterangan,
+#badge-kataSifat,#badge-kataGanti,#badge-kataDepan,
+#badge-kataHubung,#badge-angka{display:none!important}
 </style>
 </head>
 <body>
@@ -765,6 +860,10 @@ body{
     <div class="nav-item" data-page="kataDepan" tabindex="0" role="button"><i class="fas fa-map-pin"></i> Kata Depan <span class="nav-sub">(Preposition)</span> <span class="nav-badge" id="badge-kataDepan">0</span></div>
     <div class="nav-item" data-page="kataHubung" tabindex="0" role="button"><i class="fas fa-link"></i> Kata Hubung <span class="nav-sub">(Conjunction)</span> <span class="nav-badge" id="badge-kataHubung">0</span></div>
     <div class="nav-item" data-page="angka" tabindex="0" role="button"><i class="fas fa-sort-numeric-up"></i> Angka <span class="nav-sub">(Numbers)</span> <span class="nav-badge" id="badge-angka">0</span></div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-section-label">Layanan</div>
+    <div class="nav-item" data-page="saran" tabindex="0" role="button"><i class="fas fa-comment-dots"></i> Kotak Saran</div>
   </div>
   <div class="nav-section">
     <div class="nav-section-label">Admin</div>
@@ -865,10 +964,10 @@ body{
 const SUPABASE_URL      = 'https://ukarmhggjguvzjqsnvgo.supabase.co';
 const SUPABASE_ANON_KEY = 'sb_publishable_rNX1qCtzNg4CCXDClCdCNQ_Z-rM749r';
 const SUPABASE_TABLE    = 'words';
+const SUPABASE_TABLE_SARAN = 'suggestions';
 
 /* ============================================================
    KONFIGURASI — ADMIN
-   PIN default: 1234 (ubah sesuka Anda)
 ============================================================ */
 const ADMIN_PIN = '190218';
 
@@ -892,6 +991,8 @@ let isLoading = false;
 
 let ADMIN_LOGGED_IN = false;
 let ADMIN_EDIT_ID = null;
+
+let ALL_SARAN = [];
 
 /* ============================================================
    DOM REFS
@@ -936,7 +1037,7 @@ const categoryLabels = {
   dashboard:'Dashboard', semuaKata:'Semua Kata', kataBenda:'Kata Benda',
   kataKerja:'Kata Kerja', kataKeterangan:'Kata Keterangan', kataSifat:'Kata Sifat',
   kataGanti:'Kata Ganti', kataDepan:'Kata Depan', kataHubung:'Kata Hubung', angka:'Angka',
-  admin:'Panel Admin'
+  admin:'Panel Admin', saran:'Kotak Saran'
 };
 const categoryIcons = {
   semuaKata:'fa-book', kataBenda:'fa-cube', kataKerja:'fa-running',
@@ -1167,6 +1268,66 @@ async function fetchWords(){
   }
 }
 
+async function fetchSaran(){
+  try{
+    const url = SUPABASE_URL + '/rest/v1/' + SUPABASE_TABLE_SARAN +
+                '?select=*&order=id.desc&limit=200';
+    const res = await fetch(url, { method:'GET', headers: SB_HEADERS });
+    if(!res.ok){
+      const errText = await res.text();
+      throw new Error('Supabase error ' + res.status + ': ' + errText);
+    }
+    const rows = await res.json();
+    ALL_SARAN = Array.isArray(rows) ? rows.map(function(r){
+      return {
+        id: r.id,
+        nama: r.nama || '',
+        alamat: r.alamat || '',
+        saran: r.saran || '',
+        created_at: r.created_at || r.waktu || ''
+      };
+    }) : [];
+    return ALL_SARAN;
+  }catch(error){
+    console.error('Fetch saran error:', error);
+    return [];
+  }
+}
+
+async function insertSaranToDB(payload){
+  const url = SUPABASE_URL + '/rest/v1/' + SUPABASE_TABLE_SARAN;
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: Object.assign({}, SB_HEADERS, { 'Prefer': 'return=representation' }),
+    body: JSON.stringify(payload)
+  });
+  if(!res.ok){
+    const errText = await res.text();
+    throw new Error('Supabase error ' + res.status + ': ' + errText);
+  }
+  return await res.json();
+}
+
+async function deleteSaranFromDB(id){
+  try{
+    if(!confirm('Yakin ingin menghapus saran ini?')) return;
+    const url = SUPABASE_URL + '/rest/v1/' + SUPABASE_TABLE_SARAN + '?id=eq.' + encodeURIComponent(id);
+    const res = await fetch(url, {
+      method: 'DELETE',
+      headers: Object.assign({}, SB_HEADERS, { 'Prefer': 'return=minimal' })
+    });
+    if(!res.ok){
+      const errText = await res.text();
+      throw new Error('Supabase error ' + res.status + ': ' + errText);
+    }
+    await fetchSaran();
+    if(currentPage === 'admin') renderAdmin();
+    showToast('Saran berhasil dihapus', 'success');
+  }catch(error){
+    showToast('Error: ' + error.message, 'error');
+  }
+}
+
 async function deleteWordFromDB(id){
   try{
     if(!confirm('Yakin ingin menghapus kata ini?')) return;
@@ -1248,6 +1409,7 @@ function renderPage(page){
   if(page === 'dashboard') renderDashboard();
   else if(page === 'semuaKata') renderAllWords();
   else if(page === 'admin') renderAdmin();
+  else if(page === 'saran') renderSaranPage();
   else renderCategory(page);
 }
 
@@ -1409,7 +1571,7 @@ function renderAllWords(filterQ, filterCat){
   const pageWords = words.slice(start, start + PER_PAGE);
 
   const catOptions = Object.keys(categoryLabels)
-    .filter(function(k){ return k !== 'dashboard' && k !== 'admin'; })
+    .filter(function(k){ return k !== 'dashboard' && k !== 'admin' && k !== 'saran'; })
     .map(function(k){
       return '<option value="' + k + '"' + (k === filterCat ? ' selected' : '') + '>' + categoryLabels[k] + '</option>';
     }).join('');
@@ -1714,6 +1876,108 @@ function doTranslate(){
 }
 
 /* ============================================================
+   SARAN — KOTAK SARAN
+============================================================ */
+let saranWordCount = 0;
+
+function renderSaranPage(){
+  contentEl.innerHTML =
+  '<div class="fade-in">' +
+    '<div class="saran-box">' +
+      '<h2><i class="fas fa-comment-dots" style="margin-right:8px;color:var(--gold);"></i>Kotak Saran</h2>' +
+      '<p class="saran-sub">Sampaikan saran, kritik, atau masukan Anda untuk perbaikan kamus ini. Tidak perlu login.</p>' +
+
+      '<div class="saran-field">' +
+        '<label for="saran-nama"><i class="fas fa-user-friends" style="margin-right:5px;"></i>Nama</label>' +
+        '<input type="text" id="saran-nama" placeholder="Nama Anda" autocomplete="off" maxlength="80">' +
+      '</div>' +
+
+      '<div class="saran-field">' +
+        '<label for="saran-alamat"><i class="fas fa-map-pin" style="margin-right:5px;"></i>Alamat</label>' +
+        '<input type="text" id="saran-alamat" placeholder="Alamat / asal / instansi" autocomplete="off" maxlength="120">' +
+      '</div>' +
+
+      '<div class="saran-field">' +
+        '<label for="saran-isi"><i class="fas fa-edit" style="margin-right:5px;"></i>Saran</label>' +
+        '<textarea id="saran-isi" placeholder="Tulis saran Anda di sini... (maksimal 200 kata)" maxlength="2000"></textarea>' +
+        '<div class="saran-counter" id="saran-counter">0 / 200 kata</div>' +
+      '</div>' +
+
+      '<div class="saran-actions">' +
+        '<button class="saran-send-btn" id="saran-send-btn"><i class="fas fa-paper-plane"></i> Kirim Saran</button>' +
+      '</div>' +
+
+      '<div class="saran-success" id="saran-success">' +
+        '<i class="fas fa-check-circle"></i>Tarima kasi\', saran anda kami terima' +
+      '</div>' +
+    '</div>' +
+  '</div>';
+
+  const isi = document.getElementById('saran-isi');
+  const counter = document.getElementById('saran-counter');
+  const sendBtn = document.getElementById('saran-send-btn');
+  const successBox = document.getElementById('saran-success');
+
+  function updateCount(){
+    const raw = isi.value || '';
+    const words = raw.trim() ? raw.trim().split(/\s+/) : [];
+    saranWordCount = words.length;
+    counter.textContent = saranWordCount + ' / 200 kata';
+    counter.classList.remove('warn','over');
+    if(saranWordCount > 200){
+      counter.classList.add('over');
+      sendBtn.disabled = true;
+    }else if(saranWordCount >= 180){
+      counter.classList.add('warn');
+      sendBtn.disabled = false;
+    }else{
+      sendBtn.disabled = false;
+    }
+  }
+  isi.addEventListener('input', updateCount);
+  updateCount();
+
+  sendBtn.addEventListener('click', async function(){
+    const nama = (document.getElementById('saran-nama').value || '').trim();
+    const alamat = (document.getElementById('saran-alamat').value || '').trim();
+    const saran = (isi.value || '').trim();
+
+    if(!nama){ showToast('Mohon isi nama Anda', 'error'); return; }
+    if(!alamat){ showToast('Mohon isi alamat Anda', 'error'); return; }
+    if(!saran){ showToast('Mohon tulis saran Anda', 'error'); return; }
+
+    const wordArr = saran.split(/\s+/);
+    if(wordArr.length > 200){
+      showToast('Saran melebihi 200 kata', 'error');
+      return;
+    }
+
+    sendBtn.disabled = true;
+    const original = sendBtn.innerHTML;
+    sendBtn.innerHTML = '<span class="loading-spinner" style="width:14px;height:14px;border-width:2px;"></span> Mengirim...';
+
+    try{
+      await insertSaranToDB({ nama: nama, alamat: alamat, saran: saran });
+      successBox.classList.add('show');
+      showToast('Tarima kasi\', saran anda kami terima', 'success');
+
+      document.getElementById('saran-nama').value = '';
+      document.getElementById('saran-alamat').value = '';
+      isi.value = '';
+      updateCount();
+
+      setTimeout(function(){ successBox.classList.remove('show'); }, 5000);
+    }catch(error){
+      showToast('Gagal mengirim saran: ' + error.message, 'error');
+      console.error('Saran error:', error);
+    }finally{
+      sendBtn.disabled = false;
+      sendBtn.innerHTML = original;
+    }
+  });
+}
+
+/* ============================================================
    ADMIN — LOGIN PIN
 ============================================================ */
 function openAdminLogin(){
@@ -1855,15 +2119,17 @@ function renderAdmin(){
   contentEl.innerHTML = '<div class="fade-in">' +
     '<div class="admin-hero">' +
     '<h2><i class="fas fa-user-shield" style="margin-right:8px;color:var(--gold);"></i>Panel Admin</h2>' +
-    '<p>Kelola daftar kata kamus: tambah, edit, dan hapus.</p>' +
+    '<p>Kelola daftar kata kamus dan saran dari pengunjung.</p>' +
     '<div class="admin-session-info">' +
     '<span><i class="fas fa-unlock" style="margin-right:4px;"></i> Sesi aktif</span>' +
     '<span><i class="fas fa-book" style="margin-right:4px;"></i> ' + totalWords + ' kata di database</span>' +
+    '<span><i class="fas fa-comment-dots" style="margin-right:4px;"></i> ' + ALL_SARAN.length + ' saran masuk</span>' +
     '</div>' +
     '</div>' +
 
     '<div class="admin-stats">' +
     '<div class="stat-card"><div class="stat-num">' + totalWords + '</div><div class="stat-label">Total Kata</div></div>' +
+    '<div class="stat-card"><div class="stat-num">' + ALL_SARAN.length + '</div><div class="stat-label">Total Saran</div></div>' +
     catKeys.map(function(k){
       return '<div class="stat-card"><div class="stat-num">' + counts[k] + '</div><div class="stat-label">' + categoryLabels[k] + '</div></div>';
     }).join('') +
@@ -1894,6 +2160,25 @@ function renderAdmin(){
     }).join('') : '<tr><td colspan="6" style="text-align:center;color:var(--text-muted);padding:20px;">Belum ada data</td></tr>') +
     '</tbody></table></div>' +
 
+    '<div class="admin-hero" style="margin-top:24px;">' +
+    '<h2><i class="fas fa-comment-dots" style="margin-right:8px;color:var(--gold);"></i>Saran Masuk</h2>' +
+    '<p>Daftar saran, kritik, dan masukan dari pengunjung.</p>' +
+    '</div>' +
+
+    '<div class="saran-admin-list">' +
+    (ALL_SARAN.length ? ALL_SARAN.map(function(s){
+      return '<div class="saran-admin-item">' +
+        '<div class="saran-admin-meta">' +
+          '<span class="nama"><i class="fas fa-user-friends" style="margin-right:5px;"></i>' + esc(s.nama) + '</span>' +
+          '<span class="alamat"><i class="fas fa-map-pin" style="margin-right:5px;"></i>' + esc(s.alamat) + '</span>' +
+          '<span class="waktu">' + esc(formatDate(s.created_at)) + '</span>' +
+          '<button class="action-btn delete" onclick="deleteSaranFromDB(' + s.id + ')" title="Hapus saran"><i class="fas fa-trash"></i></button>' +
+        '</div>' +
+        '<div class="saran-admin-text">' + esc(s.saran) + '</div>' +
+      '</div>';
+    }).join('') : '<div class="empty-state"><i class="fas fa-comment-dots"></i><p>Belum ada saran masuk</p></div>') +
+    '</div>' +
+
     '<div style="margin-top:20px;text-align:center;">' +
     '<button class="page-btn" id="admin-logout-btn" style="padding:9px 20px;"><i class="fas fa-sign-out-alt"></i> Keluar dari Admin</button>' +
     '</div>' +
@@ -1912,6 +2197,17 @@ function renderAdmin(){
   });
 }
 
+function formatDate(iso){
+  if(!iso) return '';
+  try{
+    const d = new Date(iso);
+    if(isNaN(d.getTime())) return String(iso);
+    const pad = function(n){ return n<10 ? '0'+n : ''+n; };
+    return pad(d.getDate()) + '/' + pad(d.getMonth()+1) + '/' + d.getFullYear() +
+           ' ' + pad(d.getHours()) + ':' + pad(d.getMinutes());
+  }catch(e){ return String(iso); }
+}
+
 /* ============================================================
    REFRESH
 ============================================================ */
@@ -1919,6 +2215,7 @@ btnRefresh.addEventListener('click', async function(){
   const icon = btnRefresh.querySelector('i');
   icon.classList.add('fa-spin');
   await fetchWords();
+  await fetchSaran();
   renderPage(currentPage);
   icon.classList.remove('fa-spin');
   showToast('Data berhasil diperbarui', 'success');
@@ -1950,6 +2247,7 @@ document.addEventListener('keydown', function(e){
 (async function init(){
   contentEl.innerHTML = '<div style="text-align:center;padding:80px 20px;"><div class="loading-spinner" style="width:40px;height:40px;margin:0 auto;"></div><p style="color:var(--text-muted);margin-top:16px;font-size:14px;">Menghubungkan ke server...</p></div>';
   const words = await fetchWords();
+  await fetchSaran();
   if(words && words.length) showToast('Berhasil memuat ' + words.length + ' kata', 'success');
   renderPage(currentPage);
 })();
