@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>KEDurl — Kamus 3 Bahasa</title>
 <meta name="description" content="Kamus English Duri Indonesia — 1000+ kosakata">
-<meta name="theme-color" content="#0a1929">
+<meta name="theme-color" content="#ffffff">
 <meta name="apple-mobile-web-app-capable" content="yes">
 
 <link rel="icon" type="image/jpeg" href="https://z-cdn-media.chatglm.cn/files/a9034caf-356d-4bc1-94cc-8a8a6cdabda8.jpeg?auth_key=1885421763-a7c43330c1a1416eb022c4c5741700f3-0-f0f048866e6b0749b36f764e9a6bedb9">
@@ -65,30 +65,40 @@
 .sm\:inline{display:inline}
 @media(min-width:640px){.hidden.sm\:inline{display:inline!important}}
 
+/* ============================================================
+   TEMA: UNGU, BIRU MUDA, KUNING CERAH
+============================================================ */
 :root{
-  --bg-deep:#0a1929;
-  --bg-forest:#0d2137;
-  --card-glass:rgba(20,40,70,0.72);
-  --cyan:#00d4ff;
-  --blue-accent:#4facfe;
-  --blue-light:#7fdfff;
-  --blue-glow:rgba(0,212,255,0.22);
-  --text-dark:#e0f7ff;
-  --text-muted:#9fd4e8;
-  --gold:#00f2fe;
-  --gold-glow:rgba(0,242,254,0.28);
+  --bg-deep:#f5f5f5;
+  --bg-forest:#ffffff;
+  --card-glass:rgba(255,255,255,0.92);
+  --primary:#6A5ACD; /* Ungu lembut */
+  --primary-light:#8A7DDB;
+  --primary-dark:#5A4BB5;
+  --secondary:#4FC3F7; /* Biru muda */
+  --secondary-light:#80D8FF;
+  --secondary-dark:#29B6F6;
+  --accent:#FFD54F; /* Kuning cerah */
+  --accent-dark:#FFC107;
+  --text-dark:#333333; /* Hitam keabu-abuan */
+  --text-muted:#555555; /* Abu gelap */
+  --border-soft:#e0e0e0;
+  --border-muted:#eeeeee;
   --sidebar-w:270px;
-  --shadow-subtle:0 4px 20px rgba(0,212,255,0.10);
-  --holo-gradient:linear-gradient(135deg,#00d4ff 0%,#4facfe 55%,#00f2fe 100%);
+  --shadow-subtle:0 2px 12px rgba(0,0,0,0.06);
+  --holo-gradient:linear-gradient(135deg, #6A5ACD 0%, #4FC3F7 55%, #5A4BB5 100%);
+  --primary-glow:rgba(106,90,205,0.15);
+  --secondary-glow:rgba(79,195,247,0.15);
+  --accent-glow:rgba(255,213,79,0.20);
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{
   font-family:'Outfit',sans-serif;
   background:
-    radial-gradient(ellipse at 20% 10%, #0f2f4d 0%, transparent 55%),
-    radial-gradient(ellipse at 80% 90%, #0a2038 0%, transparent 50%),
-    #0a1929;
+    radial-gradient(ellipse at 20% 10%, rgba(106,90,205,0.05) 0%, transparent 55%),
+    radial-gradient(ellipse at 80% 90%, rgba(79,195,247,0.05) 0%, transparent 50%),
+    #f5f5f5;
   color:var(--text-dark);
   min-height:100vh;overflow-x:hidden;
   -webkit-font-smoothing:antialiased;
@@ -96,9 +106,9 @@ body{
 #bg-atmosphere{
   position:fixed;inset:0;z-index:0;pointer-events:none;
   background:
-    radial-gradient(ellipse at 20% 30%, rgba(0,212,255,0.10) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 70%, rgba(79,172,254,0.08) 0%, transparent 45%),
-    radial-gradient(ellipse at 50% 50%, rgba(0,242,254,0.05) 0%, transparent 60%);
+    radial-gradient(ellipse at 20% 30%, rgba(106,90,205,0.04) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 70%, rgba(79,195,247,0.04) 0%, transparent 45%),
+    radial-gradient(ellipse at 50% 50%, rgba(255,213,79,0.03) 0%, transparent 60%);
   animation:atmShift 22s ease-in-out infinite alternate;
   will-change:opacity,transform;
 }
@@ -109,7 +119,7 @@ body{
 }
 #bg-watermark{
   position:fixed;inset:0;z-index:0;pointer-events:none;
-  display:flex;align-items:center;justify-content:center;opacity:.05;
+  display:flex;align-items:center;justify-content:center;opacity:.06;
 }
 #bg-watermark img{width:min(50vw,350px);height:auto;border-radius:20px;filter:blur(1px)}
 .particle{position:fixed;border-radius:50%;pointer-events:none;z-index:0;animation:floatP linear infinite;will-change:transform,opacity}
@@ -121,50 +131,50 @@ body{
 }
 #sidebar{
   position:fixed;left:0;top:0;bottom:0;width:var(--sidebar-w);z-index:40;
-  background:rgba(10,30,55,0.92);
+  background:rgba(255,255,255,0.97);
   backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
-  border-right:1px solid rgba(0,212,255,0.14);
+  border-right:1px solid var(--border-soft);
   display:flex;flex-direction:column;
   transition:transform .35s cubic-bezier(.4,0,.2,1);
   overflow-y:auto;
-  box-shadow:2px 0 24px rgba(0,212,255,0.08);
+  box-shadow:2px 0 20px rgba(0,0,0,0.04);
 }
 #sidebar.closed{transform:translateX(-100%)}
-.sidebar-logo{padding:16px 16px 14px;border-bottom:1px solid rgba(0,212,255,0.10);text-align:center}
+.sidebar-logo{padding:16px 16px 14px;border-bottom:1px solid var(--border-soft);text-align:center}
 .sidebar-logo-img{
   width:60px;height:60px;margin:0 auto 8px;border-radius:14px;object-fit:cover;
-  box-shadow:0 4px 18px rgba(0,212,255,0.28),0 0 0 2px rgba(0,212,255,0.20);
+  box-shadow:0 4px 16px rgba(106,90,205,0.18),0 0 0 2px rgba(106,90,205,0.12);
   transition:transform .3s;
 }
 .sidebar-logo-img:hover{transform:scale(1.05)}
 .nav-section{padding:12px 10px 6px}
 .nav-section-label{
   font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;
-  color:rgba(0,212,255,0.55);padding:0 10px 6px;
+  color:rgba(106,90,205,0.75);padding:0 10px 6px;
 }
 .nav-item{
   display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:8px;
   cursor:pointer;transition:all .2s;color:var(--text-muted);
   font-size:13px;font-weight:500;position:relative;margin-bottom:1px;
 }
-.nav-item:hover{background:rgba(0,212,255,0.08);color:var(--text-dark)}
-.nav-item.active{background:rgba(0,212,255,0.12);color:var(--cyan);font-weight:600}
+.nav-item:hover{background:rgba(106,90,205,0.06);color:var(--text-dark)}
+.nav-item.active{background:rgba(106,90,205,0.10);color:var(--primary);font-weight:600}
 .nav-item.active::before{
   content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);
   width:3px;height:55%;border-radius:0 3px 3px 0;background:var(--holo-gradient);
-  box-shadow:0 0 8px var(--cyan);
+  box-shadow:0 0 8px rgba(106,90,205,0.5);
 }
 .nav-item i{width:18px;text-align:center;font-size:14px}
 .nav-badge{
-  margin-left:auto;background:rgba(0,212,255,0.14);color:var(--cyan);
+  margin-left:auto;background:rgba(106,90,205,0.10);color:var(--primary);
   font-size:10px;font-weight:600;padding:1px 7px;border-radius:8px;
 }
-.nav-item.active .nav-badge{background:rgba(0,212,255,0.22);color:var(--cyan)}
-.nav-item .nav-sub{font-size:9px;font-weight:400;color:rgba(0,212,255,0.45);margin-left:2px;letter-spacing:0.3px}
-.nav-item.active .nav-sub{color:rgba(0,212,255,0.7)}
+.nav-item.active .nav-badge{background:rgba(106,90,205,0.16);color:var(--primary)}
+.nav-item .nav-sub{font-size:9px;font-weight:400;color:rgba(106,90,205,0.55);margin-left:2px;letter-spacing:0.3px}
+.nav-item.active .nav-sub{color:rgba(106,90,205,0.8)}
 .nav-item.admin-locked{opacity:.85}
 #overlay{
-  position:fixed;inset:0;z-index:35;background:rgba(0,0,0,0.45);
+  position:fixed;inset:0;z-index:35;background:rgba(0,0,0,0.30);
   backdrop-filter:blur(3px);opacity:0;pointer-events:none;transition:opacity .3s;
 }
 #overlay.show{opacity:1;pointer-events:all}
@@ -174,154 +184,151 @@ body{
 }
 #topbar{
   position:sticky;top:0;z-index:20;
-  background:rgba(10,30,55,0.86);
+  background:rgba(255,255,255,0.90);
   backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
-  border-bottom:1px solid rgba(0,212,255,0.12);
+  border-bottom:1px solid var(--border-soft);
   padding:0 20px;height:60px;display:flex;align-items:center;gap:14px;
 }
 #burger{
   display:none;background:none;border:none;color:var(--text-dark);
   font-size:20px;cursor:pointer;padding:8px;border-radius:8px;transition:background .2s;
 }
-#burger:hover{background:rgba(0,212,255,0.10)}
+#burger:hover{background:rgba(106,90,205,0.08)}
 .topbar-logo-mini{width:32px;height:32px;border-radius:8px;object-fit:cover}
 #page-title{
   font-family:'Playfair Display',serif;font-weight:700;font-size:18px;
   color:var(--text-dark);flex:1;
-  text-shadow:0 0 12px rgba(0,212,255,0.35);
 }
 .topbar-btn{
-  background:rgba(0,212,255,0.10);border:1px solid rgba(0,212,255,0.22);
-  color:var(--cyan);padding:7px 12px;border-radius:8px;cursor:pointer;
+  background:rgba(106,90,205,0.08);border:1px solid rgba(106,90,205,0.20);
+  color:var(--primary);padding:7px 12px;border-radius:8px;cursor:pointer;
   font-size:13px;font-family:'Outfit';font-weight:500;transition:all .2s;
   display:flex;align-items:center;gap:6px;
 }
 .topbar-btn:hover{
-  background:rgba(0,212,255,0.20);
-  box-shadow:0 0 14px rgba(0,212,255,0.35);
+  background:rgba(106,90,205,0.14);
+  box-shadow:0 2px 10px rgba(106,90,205,0.18);
 }
 .topbar-btn.voice-btn:hover{
-  background:rgba(0,212,255,0.24);
-  border-color:rgba(0,212,255,0.45);
-  color:#fff;
+  background:rgba(106,90,205,0.18);
+  border-color:rgba(106,90,205,0.40);
+  color:var(--primary-dark);
 }
 .topbar-btn.admin-btn{
-  background:rgba(0,242,254,0.10);border-color:rgba(0,242,254,0.30);
-  color:var(--gold);
+  background:rgba(90,75,181,0.08);border-color:rgba(90,75,181,0.25);
+  color:var(--primary-dark);
 }
 .topbar-btn.admin-btn:hover{
-  background:rgba(0,242,254,0.20);
-  box-shadow:0 0 14px rgba(0,242,254,0.4);
+  background:rgba(90,75,181,0.14);
+  box-shadow:0 2px 10px rgba(90,75,181,0.20);
 }
 #content{padding:24px 20px 36px;max-width:1200px}
 .dash-hero{text-align:center;padding:30px 16px 24px}
 .dash-hero-logo{
   width:100px;height:100px;border-radius:20px;object-fit:cover;
   margin:0 auto 16px;display:block;
-  box-shadow:0 8px 32px rgba(0,212,255,0.35),0 0 0 3px rgba(0,212,255,0.22);
+  box-shadow:0 8px 28px rgba(106,90,205,0.22),0 0 0 3px rgba(106,90,205,0.12);
   animation:logoFloat 4s ease-in-out infinite;
 }
 @keyframes logoFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
 .dash-hero h1{
   font-family:'Playfair Display',serif;font-weight:900;
   font-size:clamp(24px,4.5vw,40px);color:var(--text-dark);margin-bottom:4px;
-  text-shadow:0 0 24px rgba(0,212,255,0.35);
 }
 .dash-hero h1 em{
   font-style:normal;
   background:var(--holo-gradient);-webkit-background-clip:text;
   -webkit-text-fill-color:transparent;background-clip:text;
-  filter:drop-shadow(0 0 12px rgba(0,212,255,0.55));
 }
 .dash-hero .subtitle{color:var(--text-muted);font-size:14px;font-weight:300;letter-spacing:.5px}
 .search-box{max-width:580px;margin:24px auto 0;position:relative}
 .search-box input{
   width:100%;padding:14px 52px 14px 18px;
-  background:rgba(15,35,60,0.8);
-  border:1px solid rgba(0,212,255,0.22);
+  background:#ffffff;
+  border:1px solid var(--border-soft);
   border-radius:12px;color:var(--text-dark);font-size:15px;font-family:'Outfit';
   outline:none;transition:all .3s;box-shadow:var(--shadow-subtle);
 }
-.search-box input::placeholder{color:rgba(0,212,255,0.45)}
+.search-box input::placeholder{color:#999}
 .search-box input:focus{
-  border-color:var(--cyan);
-  box-shadow:0 0 0 3px var(--blue-glow),0 0 24px rgba(0,212,255,0.35);
-  background:rgba(20,45,75,0.95);
+  border-color:var(--primary);
+  box-shadow:0 0 0 3px var(--primary-glow),0 4px 16px rgba(106,90,205,0.10);
+  background:#ffffff;
 }
 .search-voice-btn{
   position:absolute;right:6px;top:50%;transform:translateY(-50%);
   width:38px;height:38px;border-radius:8px;
-  background:var(--holo-gradient);border:none;color:#0a1929;font-size:15px;
+  background:var(--holo-gradient);border:none;color:#ffffff;font-size:15px;
   cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;
-  box-shadow:0 0 14px rgba(0,212,255,0.45);
+  box-shadow:0 2px 10px rgba(106,90,205,0.25);
 }
-.search-voice-btn:hover{transform:translateY(-50%) scale(1.06);box-shadow:0 4px 18px rgba(0,212,255,0.6)}
+.search-voice-btn:hover{transform:translateY(-50%) scale(1.06);box-shadow:0 4px 16px rgba(106,90,205,0.35)}
 .motto-card{
-  background:rgba(15,35,60,0.7);
-  border:1px solid rgba(0,212,255,0.18);
+  background:#ffffff;
+  border:1px solid var(--border-soft);
   border-radius:20px;padding:32px 24px;margin-top:32px;text-align:center;
-  backdrop-filter:blur(4px);box-shadow:var(--shadow-subtle);
+  box-shadow:var(--shadow-subtle);
   position:relative;overflow:hidden;
 }
 .motto-card::before{
   content:'';position:absolute;inset:-2px;border-radius:22px;
-  background:linear-gradient(135deg,rgba(0,212,255,0.35),transparent 40%,transparent 60%,rgba(0,242,254,0.35));
+  background:linear-gradient(135deg,rgba(106,90,205,0.15),transparent 40%,transparent 60%,rgba(79,195,247,0.15));
   z-index:-1;filter:blur(14px);opacity:.55;
 }
 .motto-card .motto-text{
   font-family:'Playfair Display',serif;font-size:clamp(20px,3.5vw,36px);font-weight:700;
-  background:linear-gradient(145deg,#00f2fe,#00d4ff,#7fdfff,#00d4ff);
+  background:linear-gradient(145deg,#6A5ACD,#4FC3F7,#5A4BB5,#6A5ACD);
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
   letter-spacing:0.5px;
-  filter:drop-shadow(0 0 18px rgba(0,212,255,0.55));
 }
 .motto-card .motto-sub{color:var(--text-muted);font-size:14px;margin-top:8px}
 .word-table-wrap{
-  background:rgba(15,35,60,0.66);
-  border:1px solid rgba(0,212,255,0.18);
+  background:#ffffff;
+  border:1px solid var(--border-soft);
   border-radius:14px;overflow:hidden;overflow-x:auto;box-shadow:var(--shadow-subtle);
 }
 .word-table{width:100%;border-collapse:collapse;min-width:600px}
-.word-table thead{background:rgba(0,212,255,0.08)}
+.word-table thead{background:#f5f5f5}
 .word-table th{
   padding:12px 14px;text-align:left;font-size:10px;font-weight:600;
-  text-transform:uppercase;letter-spacing:1px;color:var(--cyan);
-  border-bottom:1px solid rgba(0,212,255,0.14);white-space:nowrap;
+  text-transform:uppercase;letter-spacing:1px;color:var(--primary);
+  border-bottom:1px solid var(--border-soft);white-space:nowrap;
 }
 .word-table td{
   padding:10px 14px;font-size:14px;
-  border-bottom:1px solid rgba(0,212,255,0.06);color:var(--text-dark);
+  border-bottom:1px solid var(--border-muted);color:var(--text-dark);
 }
 .word-table tbody tr{transition:background .15s}
-.word-table tbody tr:hover{background:rgba(0,212,255,0.06)}
+.word-table tbody tr:hover{background:#f8f8ff}
 .word-table tbody tr:last-child td{border-bottom:none}
-.word-table .col-duri{color:var(--cyan);font-weight:600;text-shadow:0 0 10px rgba(0,212,255,0.35)}
-.word-table .col-no{color:rgba(0,212,255,0.45);font-size:12px;width:45px}
+.word-table .col-duri{color:var(--primary);font-weight:600}
+.word-table .col-no{color:#999;font-size:12px;width:45px}
 .word-table .col-actions{width:130px;text-align:center;white-space:nowrap}
 .word-table .col-category{width:110px}
 .cat-badge{
   display:inline-block;padding:2px 10px;border-radius:12px;
   font-size:10px;font-weight:500;white-space:nowrap;
-  background:rgba(0,212,255,0.14);color:var(--cyan);
-  border:1px solid rgba(0,212,255,0.22);
+  background:rgba(106,90,205,0.10);color:var(--primary);
+  border:1px solid rgba(106,90,205,0.20);
 }
 .action-btn{
   background:none;border:none;color:var(--text-muted);cursor:pointer;
   padding:5px 6px;border-radius:5px;transition:all .2s;font-size:13px;
 }
-.action-btn:hover{color:var(--cyan);background:rgba(0,212,255,0.10);text-shadow:0 0 8px var(--cyan)}
-.action-btn.edit:hover{color:var(--gold);background:rgba(0,242,254,0.10);text-shadow:0 0 8px var(--gold)}
-.action-btn.delete:hover{color:#ff5577;background:rgba(255,85,119,0.10);text-shadow:0 0 8px rgba(255,85,119,0.6)}
+.action-btn:hover{color:var(--primary);background:rgba(106,90,205,0.08)}
+.action-btn.edit{color:#d97706}
+.action-btn.edit:hover{color:#b45309;background:rgba(217,119,6,0.10)}
+.action-btn.delete:hover{color:#dc2626;background:rgba(220,38,38,0.10)}
 .pagination{display:flex;justify-content:center;align-items:center;gap:6px;margin-top:16px;flex-wrap:wrap}
 .page-btn{
-  background:rgba(15,35,60,0.7);border:1px solid rgba(0,212,255,0.18);
+  background:#ffffff;border:1px solid var(--border-soft);
   color:var(--text-muted);padding:6px 12px;border-radius:6px;cursor:pointer;
   font-size:12px;font-family:'Outfit';transition:all .2s;
 }
-.page-btn:hover{background:rgba(0,212,255,0.12);color:var(--cyan)}
+.page-btn:hover{background:rgba(106,90,205,0.06);color:var(--primary)}
 .page-btn.active{
-  background:var(--holo-gradient);color:#0a1929;font-weight:700;border-color:var(--cyan);
-  box-shadow:0 0 14px rgba(0,212,255,0.5);
+  background:var(--holo-gradient);color:#ffffff;font-weight:700;border-color:var(--primary);
+  box-shadow:0 2px 10px rgba(106,90,205,0.30);
 }
 .page-btn:disabled{opacity:.3;cursor:not-allowed}
 .page-info{font-size:12px;color:var(--text-muted);margin:0 8px}
@@ -329,128 +336,125 @@ body{
 .empty-state i{font-size:36px;margin-bottom:10px;opacity:.5}
 .empty-state p{font-size:14px}
 .results-info{color:var(--text-muted);font-size:13px;margin-bottom:14px}
-.results-info strong{color:var(--cyan);text-shadow:0 0 8px rgba(0,212,255,0.5)}
+.results-info strong{color:var(--primary)}
 #voice-modal{
   position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;
-  background:rgba(5,15,30,0.55);backdrop-filter:blur(6px);
+  background:rgba(0,0,0,0.35);backdrop-filter:blur(6px);
   opacity:0;pointer-events:none;transition:opacity .3s;
 }
 #voice-modal.show{opacity:1;pointer-events:all}
 .voice-modal-content{
-  background:rgba(12,32,58,0.96);
-  border:1px solid rgba(0,212,255,0.28);
+  background:#ffffff;
+  border:1px solid var(--border-soft);
   border-radius:20px;padding:36px;text-align:center;max-width:380px;width:90%;
   transform:scale(.9);transition:transform .3s;
-  box-shadow:0 20px 60px rgba(0,212,255,0.28),0 0 80px rgba(0,212,255,0.18);
+  box-shadow:0 20px 60px rgba(0,0,0,0.15);
 }
 #voice-modal.show .voice-modal-content{transform:scale(1)}
 .voice-circle{
   width:90px;height:90px;margin:0 auto 20px;border-radius:50%;
   display:flex;align-items:center;justify-content:center;
-  background:var(--holo-gradient);color:#0a1929;font-size:32px;
-  box-shadow:0 0 0 0 var(--blue-glow),0 0 30px rgba(0,212,255,0.5);
+  background:var(--holo-gradient);color:#ffffff;font-size:32px;
+  box-shadow:0 0 0 0 var(--primary-glow),0 0 24px rgba(106,90,205,0.35);
   transition:all .3s;cursor:pointer;
 }
 .voice-circle.listening{animation:voicePulse 1.5s ease-in-out infinite}
 @keyframes voicePulse{
-  0%,100%{box-shadow:0 0 0 0 rgba(0,212,255,0.35),0 0 30px rgba(0,212,255,0.5)}
-  50%{box-shadow:0 0 0 18px rgba(0,212,255,0),0 0 40px rgba(0,212,255,0.7)}
+  0%,100%{box-shadow:0 0 0 0 rgba(106,90,205,0.30),0 0 24px rgba(106,90,205,0.35)}
+  50%{box-shadow:0 0 0 18px rgba(106,90,205,0),0 0 32px rgba(106,90,205,0.50)}
 }
 .voice-text{font-size:16px;color:var(--text-dark);font-weight:500;min-height:24px;margin-bottom:6px}
 .voice-sub{font-size:12px;color:var(--text-muted);margin-bottom:20px}
 .voice-close-btn{
-  background:rgba(0,212,255,0.10);border:1px solid rgba(0,212,255,0.22);
+  background:rgba(106,90,205,0.08);border:1px solid rgba(106,90,205,0.20);
   color:var(--text-dark);padding:9px 24px;border-radius:8px;cursor:pointer;
   font-family:'Outfit';font-size:13px;font-weight:500;transition:all .2s;
 }
-.voice-close-btn:hover{background:rgba(0,212,255,0.20);color:var(--cyan)}
+.voice-close-btn:hover{background:rgba(106,90,205,0.14);color:var(--primary)}
 .translate-box{
-  margin-top:28px;padding:22px;background:rgba(15,35,60,0.66);
-  border:1px solid rgba(0,212,255,0.18);border-radius:16px;box-shadow:var(--shadow-subtle);
+  margin-top:28px;padding:22px;background:#ffffff;
+  border:1px solid var(--border-soft);border-radius:16px;box-shadow:var(--shadow-subtle);
 }
 .translate-row{display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap}
 .translate-field{flex:1;min-width:180px}
 .translate-field label{
   display:block;font-size:10px;font-weight:600;text-transform:uppercase;
-  letter-spacing:1px;color:var(--cyan);margin-bottom:5px;
+  letter-spacing:1px;color:var(--primary);margin-bottom:5px;
 }
 .translate-field select,.translate-field textarea{
-  width:100%;padding:10px 12px;background:rgba(10,28,50,0.85);
-  border:1px solid rgba(0,212,255,0.18);border-radius:8px;color:var(--text-dark);
+  width:100%;padding:10px 12px;background:#f5f5f5;
+  border:1px solid var(--border-soft);border-radius:8px;color:var(--text-dark);
   font-family:'Outfit';font-size:13px;outline:none;transition:border-color .2s;
 }
-.translate-field select option{background:#0a1929;color:#e0f7ff}
+.translate-field select option{background:#ffffff;color:var(--text-dark)}
 .translate-field textarea{resize:vertical;min-height:50px}
 .translate-field select:focus,.translate-field textarea:focus{
-  border-color:var(--cyan);box-shadow:0 0 0 2px var(--blue-glow);
+  border-color:var(--primary);box-shadow:0 0 0 2px var(--primary-glow);
 }
 .translate-go{
   padding:10px 20px;border-radius:8px;background:var(--holo-gradient);border:none;
-  color:#0a1929;font-family:'Outfit';font-size:13px;font-weight:700;cursor:pointer;
-  transition:all .2s;white-space:nowrap;box-shadow:0 0 16px rgba(0,212,255,0.4);
+  color:#ffffff;font-family:'Outfit';font-size:13px;font-weight:700;cursor:pointer;
+  transition:all .2s;white-space:nowrap;box-shadow:0 2px 10px rgba(106,90,205,0.25);
 }
-.translate-go:hover{transform:translateY(-2px);box-shadow:0 6px 22px rgba(0,212,255,0.55)}
+.translate-go:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(106,90,205,0.35)}
 .translate-result{
-  margin-top:14px;padding:14px;background:rgba(10,28,50,0.85);
-  border-radius:8px;font-size:15px;color:var(--cyan);min-height:40px;
-  display:none;border:1px solid rgba(0,212,255,0.22);
-  text-shadow:0 0 10px rgba(0,212,255,0.4);
+  margin-top:14px;padding:14px;background:#f5f5f5;
+  border-radius:8px;font-size:15px;color:var(--primary);min-height:40px;
+  display:none;border:1px solid var(--border-soft);
 }
 .translate-result.show{display:block}
 #detail-modal{
   position:fixed;inset:0;z-index:90;display:flex;align-items:center;justify-content:center;
-  background:rgba(5,15,30,0.55);backdrop-filter:blur(5px);
+  background:rgba(0,0,0,0.35);backdrop-filter:blur(5px);
   opacity:0;pointer-events:none;transition:opacity .3s;
 }
 #detail-modal.show{opacity:1;pointer-events:all}
 .detail-content{
-  background:rgba(12,32,58,0.97);
-  border:1px solid rgba(0,212,255,0.28);border-radius:18px;padding:28px;
+  background:#ffffff;
+  border:1px solid var(--border-soft);border-radius:18px;padding:28px;
   max-width:440px;width:92%;transform:scale(.92);transition:transform .3s;
-  box-shadow:0 20px 60px rgba(0,212,255,0.25),0 0 80px rgba(0,212,255,0.15);
+  box-shadow:0 20px 60px rgba(0,0,0,0.15);
 }
 #detail-modal.show .detail-content{transform:scale(1)}
-.detail-lang{margin-bottom:14px;padding:12px 16px;background:rgba(0,212,255,0.06);border-radius:10px;border:1px solid rgba(0,212,255,0.10)}
-.detail-lang-label{font-size:9px;text-transform:uppercase;letter-spacing:1.5px;color:var(--cyan);margin-bottom:3px}
+.detail-lang{margin-bottom:14px;padding:12px 16px;background:#f5f5f5;border-radius:10px;border:1px solid var(--border-soft)}
+.detail-lang-label{font-size:9px;text-transform:uppercase;letter-spacing:1.5px;color:var(--primary);margin-bottom:3px}
 .detail-lang-word{font-size:24px;font-weight:700;color:var(--text-dark)}
 .detail-lang-word.gold{
   background:var(--holo-gradient);-webkit-background-clip:text;
   -webkit-text-fill-color:transparent;background-clip:text;
-  filter:drop-shadow(0 0 10px rgba(0,212,255,0.5));
 }
 .detail-close{
-  margin-top:18px;width:100%;padding:10px;background:rgba(0,212,255,0.08);
-  border:1px solid rgba(0,212,255,0.18);border-radius:8px;color:var(--text-dark);
+  margin-top:18px;width:100%;padding:10px;background:#f5f5f5;
+  border:1px solid var(--border-soft);border-radius:8px;color:var(--text-dark);
   font-family:'Outfit';font-size:13px;cursor:pointer;transition:all .2s;
 }
-.detail-close:hover{background:rgba(0,212,255,0.18);color:var(--cyan)}
+.detail-close:hover{background:#eeeeee;color:var(--primary)}
 .detail-close.danger{
-  background:rgba(255,85,119,0.08);border-color:rgba(255,85,119,0.25);color:#ff7a95;
+  background:rgba(220,38,38,0.06);border-color:rgba(220,38,38,0.25);color:#dc2626;
 }
-.detail-close.danger:hover{background:rgba(255,85,119,0.16)}
+.detail-close.danger:hover{background:rgba(220,38,38,0.12)}
 #toast-container{
   position:fixed;bottom:20px;right:20px;z-index:200;
   display:flex;flex-direction:column;gap:6px;
 }
 .toast{
-  background:rgba(12,32,58,0.96);
-  border:1px solid rgba(0,212,255,0.28);
+  background:#ffffff;
+  border:1px solid var(--border-soft);
   backdrop-filter:blur(12px);border-radius:10px;padding:12px 18px;
   color:var(--text-dark);font-size:13px;display:flex;align-items:center;gap:8px;
   animation:toastIn .3s ease;max-width:320px;
-  box-shadow:0 8px 28px rgba(0,212,255,0.25);
+  box-shadow:0 8px 24px rgba(0,0,0,0.12);
 }
-.toast.error{border-color:rgba(255,85,119,0.5)}
-.toast.error i{color:#ff7a95}
-.toast.info{border-color:rgba(0,212,255,0.4)}
-.toast.info i{color:var(--cyan)}
-.toast i{color:var(--cyan);text-shadow:0 0 8px currentColor}
+.toast.error{border-color:#fecaca;background:#fef2f2;color:#991b1b}
+.toast.error i{color:#dc2626}
+.toast.info{border-color:rgba(106,90,205,0.30);background:#f3f0ff;color:#4a3f99}
+.toast.info i{color:var(--primary)}
+.toast i{color:var(--primary)}
 @keyframes toastIn{from{opacity:0;transform:translateY(14px) scale(.95)}to{opacity:1;transform:translateY(0) scale(1)}}
 .loading-spinner{
   display:inline-block;width:20px;height:20px;
-  border:2px solid rgba(0,212,255,0.18);border-top:2px solid var(--cyan);
+  border:2px solid rgba(106,90,205,0.15);border-top:2px solid var(--primary);
   border-radius:50%;animation:spin .8s linear infinite;
-  box-shadow:0 0 10px rgba(0,212,255,0.35);
 }
 @keyframes spin{to{transform:rotate(360deg)}}
 @media(max-width:768px){
@@ -469,10 +473,10 @@ body{
   .motto-card .motto-text{font-size:clamp(18px,4vw,28px)}
 }
 @media(max-width:480px){.dash-hero{padding:20px 10px 16px}}
-::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar{width:6px}
 ::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:rgba(0,212,255,0.18);border-radius:3px}
-::-webkit-scrollbar-thumb:hover{background:rgba(0,212,255,0.32)}
+::-webkit-scrollbar-thumb{background:rgba(0,0,0,0.15);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,0.28)}
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
 }
@@ -481,18 +485,17 @@ body{
 .flex-gap{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
 .search-result-card{
   display:flex;align-items:center;gap:12px;padding:12px 16px;
-  background:rgba(15,35,60,0.72);
-  border:1px solid rgba(0,212,255,0.18);border-radius:10px;cursor:pointer;
+  background:#ffffff;
+  border:1px solid var(--border-soft);border-radius:10px;cursor:pointer;
   transition:all .2s;margin-bottom:6px;box-shadow:var(--shadow-subtle);flex-wrap:wrap;
 }
 .search-result-card:hover{
-  background:rgba(20,48,80,0.9);
-  border-color:rgba(0,212,255,0.4);transform:translateX(4px);
-  box-shadow:0 4px 20px rgba(0,212,255,0.25);
+  background:#f8f8ff;
+  border-color:rgba(106,90,205,0.30);transform:translateX(4px);
+  box-shadow:0 4px 16px rgba(106,90,205,0.10);
 }
 .search-result-card .sr-duri{
-  font-size:16px;font-weight:700;color:var(--cyan);min-width:100px;
-  text-shadow:0 0 10px rgba(0,212,255,0.5);
+  font-size:16px;font-weight:700;color:var(--primary);min-width:100px;
 }
 .search-result-card .sr-others{
   font-size:13px;color:var(--text-muted);flex:1;display:flex;gap:16px;
@@ -501,115 +504,111 @@ body{
 .search-result-card .sr-others .sr-item{display:flex;align-items:center;gap:4px}
 .search-result-card .sr-others .sr-lang{
   font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;
-  color:var(--cyan);background:rgba(0,212,255,0.12);padding:1px 6px;border-radius:8px;
+  color:var(--primary);background:rgba(106,90,205,0.10);padding:1px 6px;border-radius:8px;
 }
 .search-result-card .sr-cat{
-  font-size:10px;background:rgba(0,212,255,0.12);color:var(--cyan);
-  padding:2px 10px;border-radius:12px;border:1px solid rgba(0,212,255,0.22);
+  font-size:10px;background:rgba(106,90,205,0.10);color:var(--primary);
+  padding:2px 10px;border-radius:12px;border:1px solid rgba(106,90,205,0.20);
 }
 .search-result-card .sr-speak{
   background:none;border:none;color:var(--text-muted);cursor:pointer;
   padding:4px 6px;border-radius:6px;transition:all .2s;font-size:14px;
 }
-.search-result-card .sr-speak:hover{color:var(--cyan);background:rgba(0,212,255,0.12);text-shadow:0 0 8px var(--cyan)}
+.search-result-card .sr-speak:hover{color:var(--primary);background:rgba(106,90,205,0.08)}
 .cat-search{
-  display:flex;align-items:center;gap:8px;background:rgba(15,35,60,0.7);
-  border:1px solid rgba(0,212,255,0.18);border-radius:8px;padding:7px 12px;flex:1;max-width:380px;
+  display:flex;align-items:center;gap:8px;background:#ffffff;
+  border:1px solid var(--border-soft);border-radius:8px;padding:7px 12px;flex:1;max-width:380px;
 }
-.cat-search i{color:var(--cyan);font-size:13px}
+.cat-search i{color:var(--primary);font-size:13px}
 .cat-search input{
   background:none;border:none;color:var(--text-dark);font-size:13px;
   font-family:'Outfit';outline:none;flex:1;
 }
-.cat-search input::placeholder{color:rgba(0,212,255,0.4)}
+.cat-search input::placeholder{color:#999}
 .cat-filter-select{
-  padding:7px 12px;background:rgba(15,35,60,0.7);
-  border:1px solid rgba(0,212,255,0.18);border-radius:8px;color:var(--text-dark);
+  padding:7px 12px;background:#ffffff;
+  border:1px solid var(--border-soft);border-radius:8px;color:var(--text-dark);
   font-family:'Outfit';font-size:13px;outline:none;cursor:pointer;
 }
-.cat-filter-select:focus{border-color:var(--cyan);box-shadow:0 0 0 2px var(--blue-glow)}
-.cat-filter-select option{background:#0a1929;color:#e0f7ff}
+.cat-filter-select:focus{border-color:var(--primary);box-shadow:0 0 0 2px var(--primary-glow)}
+.cat-filter-select option{background:#ffffff;color:var(--text-dark)}
 .cat-header{
   display:flex;align-items:center;justify-content:space-between;
   flex-wrap:wrap;gap:10px;margin-bottom:16px;
 }
 .wotd-section{
-  margin-top:28px;padding:22px;background:rgba(15,35,60,0.6);
-  border:1px solid rgba(0,212,255,0.16);border-radius:16px;position:relative;
+  margin-top:28px;padding:22px;background:#ffffff;
+  border:1px solid var(--border-soft);border-radius:16px;position:relative;
   overflow:hidden;box-shadow:var(--shadow-subtle);
 }
 .wotd-section::before{
   content:'';position:absolute;top:-30px;right:-30px;width:100px;height:100px;
-  border-radius:50%;background:radial-gradient(circle,rgba(0,212,255,0.22),transparent 70%);
+  border-radius:50%;background:radial-gradient(circle,rgba(106,90,205,0.12),transparent 70%);
 }
 .wotd-label{
   font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:2px;
-  color:var(--cyan);margin-bottom:14px;
-  text-shadow:0 0 8px rgba(0,212,255,0.5);
+  color:var(--primary);margin-bottom:14px;
 }
 .wotd-words{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 .wotd-word{
-  text-align:center;padding:14px;background:rgba(0,212,255,0.05);
-  border-radius:10px;border:1px solid rgba(0,212,255,0.12);
+  text-align:center;padding:14px;background:#f5f5f5;
+  border-radius:10px;border:1px solid var(--border-soft);
 }
 .wotd-word .lang-label{
   font-size:9px;text-transform:uppercase;letter-spacing:1px;
-  color:var(--cyan);margin-bottom:4px;
+  color:var(--primary);margin-bottom:4px;
 }
 .wotd-word .lang-word{font-size:20px;font-weight:700;color:var(--text-dark)}
 .wotd-word .lang-word.gold{
   background:var(--holo-gradient);-webkit-background-clip:text;
   -webkit-text-fill-color:transparent;background-clip:text;
-  filter:drop-shadow(0 0 10px rgba(0,212,255,0.5));
 }
 .wotd-speak{margin-top:12px;text-align:center}
 .speak-btn{
-  background:rgba(0,212,255,0.10);border:1px solid rgba(0,212,255,0.22);
-  color:var(--cyan);padding:5px 14px;border-radius:6px;cursor:pointer;
+  background:rgba(106,90,205,0.08);border:1px solid rgba(106,90,205,0.20);
+  color:var(--primary);padding:5px 14px;border-radius:6px;cursor:pointer;
   font-size:12px;font-family:'Outfit';transition:all .2s;
 }
-.speak-btn:hover{background:rgba(0,212,255,0.20);box-shadow:0 0 12px rgba(0,212,255,0.4)}
+.speak-btn:hover{background:rgba(106,90,205,0.14);box-shadow:0 2px 10px rgba(106,90,205,0.20)}
 
-/* ============================================================
-   ADMIN: modal login PIN
-============================================================ */
+/* ADMIN: modal login PIN */
 #admin-login-modal{
   position:fixed;inset:0;z-index:110;display:flex;align-items:center;justify-content:center;
-  background:rgba(5,15,30,0.65);backdrop-filter:blur(8px);
+  background:rgba(0,0,0,0.40);backdrop-filter:blur(8px);
   opacity:0;pointer-events:none;transition:opacity .3s;
 }
 #admin-login-modal.show{opacity:1;pointer-events:all}
 .admin-login-content{
-  background:rgba(12,32,58,0.97);
-  border:1px solid rgba(0,242,254,0.32);border-radius:20px;padding:36px 32px;
+  background:#ffffff;
+  border:1px solid var(--border-soft);border-radius:20px;padding:36px 32px;
   max-width:380px;width:90%;text-align:center;
   transform:scale(.9);transition:transform .3s;
-  box-shadow:0 20px 60px rgba(0,242,254,0.28),0 0 80px rgba(0,242,254,0.18);
+  box-shadow:0 20px 60px rgba(0,0,0,0.18);
 }
 #admin-login-modal.show .admin-login-content{transform:scale(1)}
 .admin-lock-circle{
   width:80px;height:80px;margin:0 auto 18px;border-radius:50%;
   display:flex;align-items:center;justify-content:center;
-  background:linear-gradient(135deg,#00f2fe 0%,#4facfe 55%,#00d4ff 100%);
-  color:#0a1929;font-size:30px;
-  box-shadow:0 0 30px rgba(0,242,254,0.55);
+  background:linear-gradient(135deg,#6A5ACD 0%,#4FC3F7 55%,#5A4BB5 100%);
+  color:#ffffff;font-size:30px;
+  box-shadow:0 4px 20px rgba(106,90,205,0.30);
 }
 .admin-login-title{
   font-family:'Playfair Display',serif;font-weight:700;font-size:22px;
   color:var(--text-dark);margin-bottom:6px;
-  text-shadow:0 0 18px rgba(0,242,254,0.4);
 }
 .admin-login-sub{font-size:12px;color:var(--text-muted);margin-bottom:22px}
 .admin-pin-input{
-  width:100%;padding:14px 16px;background:rgba(10,28,50,0.85);
-  border:1px solid rgba(0,242,254,0.25);border-radius:10px;
+  width:100%;padding:14px 16px;background:#f5f5f5;
+  border:1px solid var(--border-soft);border-radius:10px;
   color:var(--text-dark);font-family:'Outfit';font-size:22px;
   letter-spacing:8px;text-align:center;outline:none;
   transition:all .25s;
 }
 .admin-pin-input:focus{
-  border-color:var(--gold);
-  box-shadow:0 0 0 3px rgba(0,242,254,0.22),0 0 24px rgba(0,242,254,0.35);
+  border-color:var(--primary);
+  box-shadow:0 0 0 3px var(--primary-glow);
+  background:#ffffff;
 }
 .admin-login-actions{
   display:flex;gap:10px;margin-top:20px;
@@ -620,105 +619,99 @@ body{
   border:1px solid transparent;
 }
 .admin-btn.cancel{
-  background:rgba(0,212,255,0.08);border-color:rgba(0,212,255,0.22);color:var(--text-dark);
+  background:#f5f5f5;border-color:var(--border-soft);color:var(--text-dark);
 }
-.admin-btn.cancel:hover{background:rgba(0,212,255,0.18);color:var(--cyan)}
+.admin-btn.cancel:hover{background:#eeeeee;color:var(--primary)}
 .admin-btn.submit{
-  background:var(--holo-gradient);color:#0a1929;
-  box-shadow:0 0 18px rgba(0,242,254,0.45);
+  background:var(--holo-gradient);color:#ffffff;
+  box-shadow:0 2px 12px rgba(106,90,205,0.30);
 }
-.admin-btn.submit:hover{transform:translateY(-2px);box-shadow:0 6px 22px rgba(0,242,254,0.6)}
+.admin-btn.submit:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(106,90,205,0.40)}
 .admin-error{
-  margin-top:14px;font-size:12px;color:#ff7a95;
+  margin-top:14px;font-size:12px;color:#dc2626;
   min-height:16px;
 }
 
-/* ============================================================
-   ADMIN: modal tambah / edit kata
-============================================================ */
+/* ADMIN: modal tambah / edit kata */
 #word-form-modal{
   position:fixed;inset:0;z-index:95;display:flex;align-items:center;justify-content:center;
-  background:rgba(5,15,30,0.55);backdrop-filter:blur(6px);
+  background:rgba(0,0,0,0.40);backdrop-filter:blur(6px);
   opacity:0;pointer-events:none;transition:opacity .3s;
 }
 #word-form-modal.show{opacity:1;pointer-events:all}
 .word-form-content{
-  background:rgba(12,32,58,0.97);
-  border:1px solid rgba(0,242,254,0.28);border-radius:18px;
+  background:#ffffff;
+  border:1px solid var(--border-soft);border-radius:18px;
   padding:26px 26px 22px;max-width:480px;width:92%;
   transform:scale(.92);transition:transform .3s;
-  box-shadow:0 20px 60px rgba(0,242,254,0.25),0 0 80px rgba(0,242,254,0.15);
+  box-shadow:0 20px 60px rgba(0,0,0,0.18);
   max-height:90vh;overflow-y:auto;
 }
 #word-form-modal.show .word-form-content{transform:scale(1)}
 .word-form-title{
   font-family:'Playfair Display',serif;font-weight:700;font-size:20px;
   color:var(--text-dark);margin-bottom:4px;
-  text-shadow:0 0 18px rgba(0,242,254,0.4);
 }
 .word-form-sub{font-size:11px;color:var(--text-muted);margin-bottom:20px}
 .form-field{margin-bottom:14px}
 .form-field label{
   display:block;font-size:10px;font-weight:600;text-transform:uppercase;
-  letter-spacing:1px;color:var(--gold);margin-bottom:5px;
+  letter-spacing:1px;color:var(--primary-dark);margin-bottom:5px;
 }
 .form-field input,.form-field select{
-  width:100%;padding:10px 12px;background:rgba(10,28,50,0.85);
-  border:1px solid rgba(0,242,254,0.22);border-radius:8px;color:var(--text-dark);
+  width:100%;padding:10px 12px;background:#f5f5f5;
+  border:1px solid var(--border-soft);border-radius:8px;color:var(--text-dark);
   font-family:'Outfit';font-size:14px;outline:none;transition:all .2s;
 }
 .form-field input:focus,.form-field select:focus{
-  border-color:var(--gold);
-  box-shadow:0 0 0 2px rgba(0,242,254,0.22);
+  border-color:var(--primary);
+  box-shadow:0 0 0 2px var(--primary-glow);
+  background:#ffffff;
 }
-.form-field select option{background:#0a1929;color:#e0f7ff}
+.form-field select option{background:#ffffff;color:var(--text-dark)}
 .word-form-actions{display:flex;gap:10px;margin-top:20px}
 
-/* ============================================================
-   ADMIN: halaman dashboard admin
-============================================================ */
+/* ADMIN: dashboard */
 .admin-hero{
-  background:rgba(15,35,60,0.66);
-  border:1px solid rgba(0,242,254,0.22);
+  background:#ffffff;
+  border:1px solid var(--border-soft);
   border-radius:16px;padding:22px 24px;margin-bottom:20px;
   position:relative;overflow:hidden;box-shadow:var(--shadow-subtle);
 }
 .admin-hero::before{
   content:'';position:absolute;top:-40px;right:-40px;width:140px;height:140px;
-  border-radius:50%;background:radial-gradient(circle,rgba(0,242,254,0.25),transparent 70%);
+  border-radius:50%;background:radial-gradient(circle,rgba(106,90,205,0.10),transparent 70%);
 }
 .admin-hero h2{
   font-family:'Playfair Display',serif;font-size:22px;font-weight:700;
   color:var(--text-dark);margin-bottom:4px;
-  text-shadow:0 0 16px rgba(0,242,254,0.4);
 }
 .admin-hero p{color:var(--text-muted);font-size:13px}
 .admin-hero .admin-session-info{
   display:flex;gap:14px;flex-wrap:wrap;margin-top:12px;
-  font-size:11px;color:rgba(0,242,254,0.7);
+  font-size:11px;color:rgba(106,90,205,0.85);
 }
 .admin-hero .admin-session-info span{
-  background:rgba(0,242,254,0.08);padding:3px 10px;border-radius:8px;
-  border:1px solid rgba(0,242,254,0.18);
+  background:rgba(106,90,205,0.06);padding:3px 10px;border-radius:8px;
+  border:1px solid rgba(106,90,205,0.15);
 }
 .admin-stats{
   display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));
   gap:10px;margin-bottom:20px;
 }
 .stat-card{
-  background:rgba(15,35,60,0.66);
-  border:1px solid rgba(0,212,255,0.18);
+  background:#ffffff;
+  border:1px solid var(--border-soft);
   border-radius:12px;padding:14px;text-align:center;
   transition:all .25s;
 }
 .stat-card:hover{
-  border-color:rgba(0,242,254,0.4);
+  border-color:rgba(106,90,205,0.30);
   transform:translateY(-2px);
-  box-shadow:0 6px 22px rgba(0,242,254,0.2);
+  box-shadow:0 6px 20px rgba(106,90,205,0.10);
 }
 .stat-card .stat-num{
-  font-size:22px;font-weight:700;color:var(--gold);
-  text-shadow:0 0 14px rgba(0,242,254,0.5);
+  font-size:22px;font-weight:700;color:var(--primary-dark);
 }
 .stat-card .stat-label{
   font-size:10px;text-transform:uppercase;letter-spacing:1px;
@@ -730,99 +723,96 @@ body{
 }
 .admin-add-btn{
   padding:10px 18px;border-radius:10px;
-  background:var(--holo-gradient);color:#0a1929;
+  background:var(--holo-gradient);color:#ffffff;
   border:none;cursor:pointer;font-family:'Outfit';font-size:13px;
   font-weight:700;display:flex;align-items:center;gap:8px;
-  transition:all .2s;box-shadow:0 0 18px rgba(0,242,254,0.45);
+  transition:all .2s;box-shadow:0 2px 12px rgba(106,90,205,0.25);
 }
-.admin-add-btn:hover{transform:translateY(-2px);box-shadow:0 6px 22px rgba(0,242,254,0.6)}
+.admin-add-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(106,90,205,0.35)}
 .admin-add-btn i{font-size:12px}
 
-/* ============================================================
-   SARAN — Kotak Saran
-============================================================ */
+/* SARAN */
 .saran-box{
-  background:rgba(15,35,60,0.66);
-  border:1px solid rgba(0,212,255,0.18);
+  background:#ffffff;
+  border:1px solid var(--border-soft);
   border-radius:16px;padding:28px 24px;margin-top:10px;
   box-shadow:var(--shadow-subtle);position:relative;overflow:hidden;
 }
 .saran-box::before{
   content:'';position:absolute;top:-40px;right:-40px;width:130px;height:130px;
-  border-radius:50%;background:radial-gradient(circle,rgba(0,212,255,0.18),transparent 70%);
+  border-radius:50%;background:radial-gradient(circle,rgba(106,90,205,0.08),transparent 70%);
   pointer-events:none;
 }
 .saran-box h2{
   font-family:'Playfair Display',serif;font-size:22px;font-weight:700;
   color:var(--text-dark);margin-bottom:4px;
-  text-shadow:0 0 16px rgba(0,212,255,0.4);
 }
 .saran-box .saran-sub{font-size:13px;color:var(--text-muted);margin-bottom:22px}
 .saran-field{margin-bottom:14px}
 .saran-field label{
   display:block;font-size:10px;font-weight:600;text-transform:uppercase;
-  letter-spacing:1px;color:var(--cyan);margin-bottom:5px;
+  letter-spacing:1px;color:var(--primary);margin-bottom:5px;
 }
 .saran-field input,.saran-field textarea{
-  width:100%;padding:11px 14px;background:rgba(10,28,50,0.85);
-  border:1px solid rgba(0,212,255,0.20);border-radius:9px;color:var(--text-dark);
+  width:100%;padding:11px 14px;background:#f5f5f5;
+  border:1px solid var(--border-soft);border-radius:9px;color:var(--text-dark);
   font-family:'Outfit';font-size:14px;outline:none;transition:all .2s;
 }
 .saran-field input:focus,.saran-field textarea:focus{
-  border-color:var(--cyan);
-  box-shadow:0 0 0 2px var(--blue-glow);
+  border-color:var(--primary);
+  box-shadow:0 0 0 2px var(--primary-glow);
+  background:#ffffff;
 }
 .saran-field textarea{resize:vertical;min-height:100px}
 .saran-counter{
   text-align:right;font-size:11px;color:var(--text-muted);margin-top:4px;
   transition:color .2s;
 }
-.saran-counter.warn{color:#ffb74d}
-.saran-counter.over{color:#ff5577;font-weight:600}
+.saran-counter.warn{color:#d97706}
+.saran-counter.over{color:#dc2626;font-weight:600}
 .saran-actions{display:flex;gap:10px;margin-top:8px;align-items:center;flex-wrap:wrap}
 .saran-send-btn{
   padding:11px 24px;border-radius:10px;background:var(--holo-gradient);
-  border:none;color:#0a1929;font-family:'Outfit';font-size:13px;font-weight:700;
-  cursor:pointer;transition:all .2s;box-shadow:0 0 18px rgba(0,212,255,0.4);
+  border:none;color:#ffffff;font-family:'Outfit';font-size:13px;font-weight:700;
+  cursor:pointer;transition:all .2s;box-shadow:0 2px 10px rgba(106,90,205,0.25);
   display:flex;align-items:center;gap:8px;
 }
-.saran-send-btn:hover{transform:translateY(-2px);box-shadow:0 6px 22px rgba(0,212,255,0.55)}
+.saran-send-btn:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(106,90,205,0.35)}
 .saran-send-btn:disabled{opacity:.55;cursor:not-allowed;transform:none;box-shadow:none}
 .saran-success{
   margin-top:16px;padding:16px 18px;border-radius:12px;
-  background:rgba(0,242,254,0.08);border:1px solid rgba(0,242,254,0.35);
-  color:var(--gold);font-size:15px;font-weight:600;text-align:center;
-  text-shadow:0 0 12px rgba(0,242,254,0.5);
+  background:#f3f0ff;border:1px solid rgba(106,90,205,0.30);
+  color:var(--primary-dark);font-size:15px;font-weight:600;text-align:center;
   display:none;animation:fadeIn .4s ease;
 }
 .saran-success.show{display:block}
 .saran-success i{margin-right:8px;font-size:18px}
 .saran-admin-list{margin-top:6px}
 .saran-admin-item{
-  background:rgba(10,28,50,0.72);
-  border:1px solid rgba(0,212,255,0.14);
+  background:#f5f5f5;
+  border:1px solid var(--border-soft);
   border-radius:12px;padding:14px 16px;margin-bottom:10px;
   transition:all .2s;
 }
 .saran-admin-item:hover{
-  border-color:rgba(0,242,254,0.35);
-  box-shadow:0 4px 18px rgba(0,242,254,0.15);
+  border-color:rgba(106,90,205,0.30);
+  box-shadow:0 4px 16px rgba(106,90,205,0.08);
 }
 .saran-admin-meta{
   display:flex;flex-wrap:wrap;gap:10px;align-items:center;
   margin-bottom:8px;font-size:11px;color:var(--text-muted);
 }
-.saran-admin-meta .nama{color:var(--cyan);font-weight:600;font-size:13px}
+.saran-admin-meta .nama{color:var(--primary);font-weight:600;font-size:13px}
 .saran-admin-meta .alamat{color:var(--text-muted)}
-.saran-admin-meta .waktu{margin-left:auto;color:rgba(0,212,255,0.5);font-size:10px}
+.saran-admin-meta .waktu{margin-left:auto;color:#999;font-size:10px}
 .saran-admin-text{
   font-size:13px;color:var(--text-dark);line-height:1.55;
   white-space:pre-wrap;word-break:break-word;
 }
 .saran-badge-count{
-  margin-left:auto;background:rgba(0,242,254,0.16);color:var(--gold);
+  margin-left:auto;background:rgba(106,90,205,0.12);color:var(--primary-dark);
   font-size:10px;font-weight:700;padding:1px 8px;border-radius:8px;
-  border:1px solid rgba(0,242,254,0.3);
+  border:1px solid rgba(106,90,205,0.25);
 }
 
 /* Sembunyikan badge kategori */
@@ -830,6 +820,85 @@ body{
 #badge-kataBenda,#badge-kataKerja,#badge-kataKeterangan,
 #badge-kataSifat,#badge-kataGanti,#badge-kataDepan,
 #badge-kataHubung,#badge-angka{display:none!important}
+
+/* ===== MENU ADMIN INTERAKTIF ===== */
+.admin-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border-muted);
+  cursor: pointer;
+  transition: all .2s;
+  position: relative;
+}
+.admin-nav-item:hover {
+  background: rgba(106,90,205,0.04);
+}
+.admin-nav-item .nav-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+  background: rgba(106,90,205,0.08);
+  color: var(--primary);
+}
+.admin-nav-item .nav-info {
+  flex: 1;
+}
+.admin-nav-item .nav-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 2px;
+}
+.admin-nav-item .nav-desc {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+.admin-nav-item .nav-count {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--primary);
+  background: rgba(106,90,205,0.08);
+  padding: 2px 10px;
+  border-radius: 12px;
+}
+.admin-nav-item .nav-edit-btn {
+  display: none;
+  background: var(--accent);
+  border: none;
+  color: #333;
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-family: 'Outfit';
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .2s;
+  box-shadow: 0 2px 8px rgba(255,213,79,0.3);
+}
+.admin-nav-item .nav-edit-btn i {
+  margin-right: 4px;
+}
+.admin-nav-item .nav-edit-btn:hover {
+  background: var(--accent-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255,213,79,0.4);
+}
+.admin-nav-item.expanded .nav-edit-btn {
+  display: inline-flex;
+  align-items: center;
+}
+.admin-nav-item .nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
 </style>
 </head>
 <body>
@@ -870,7 +939,7 @@ body{
     <div class="nav-item admin-locked" id="nav-admin" data-page="admin" tabindex="0" role="button"><i class="fas fa-user-shield"></i> Panel Admin <span class="nav-badge" id="badge-admin"><i class="fas fa-lock" style="font-size:9px;"></i></span></div>
   </div>
   <div style="flex:1"></div>
-  <div style="padding:12px 16px;border-top:1px solid rgba(0,212,255,0.10);font-size:10px;color:rgba(0,212,255,0.4);text-align:center;">DkEDurl v2.0 — Cloud</div>
+  <div style="padding:12px 16px;border-top:1px solid var(--border-soft);font-size:10px;color:#999;text-align:center;">DkEDurl v2.2 — Purple</div>
 </aside>
 
 <div id="overlay" aria-hidden="true"></div>
@@ -899,8 +968,6 @@ body{
 <div id="detail-modal" role="dialog" aria-label="Detail kata" aria-modal="true">
   <div class="detail-content" id="detail-inner"></div>
 </div>
-
-<!-- ADMIN: modal login PIN -->
 <div id="admin-login-modal" role="dialog" aria-label="Login admin" aria-modal="true">
   <div class="admin-login-content">
     <div class="admin-lock-circle"><i class="fas fa-lock"></i></div>
@@ -916,7 +983,6 @@ body{
   </div>
 </div>
 
-<!-- ADMIN: modal tambah / edit kata -->
 <div id="word-form-modal" role="dialog" aria-label="Form kata" aria-modal="true">
   <div class="word-form-content">
     <div class="word-form-title" id="word-form-title">Tambah Kata</div>
@@ -994,6 +1060,13 @@ let ADMIN_EDIT_ID = null;
 
 let ALL_SARAN = [];
 
+/* Deteksi kolom kategori DB (cat / kategori / category) */
+let DB_CAT_FIELD = null;
+let DB_CAT_FORMAT = null;
+
+/* Flag fokus search setelah navigasi */
+window._focusSearchNext = false;
+
 /* ============================================================
    DOM REFS
 ============================================================ */
@@ -1031,7 +1104,7 @@ const wordFormCancel = document.getElementById('word-form-cancel');
 const wordFormSave = document.getElementById('word-form-save');
 
 /* ============================================================
-   CATEGORY LABELS & ICONS & COLORS
+   LABEL / IKON / WARNA KATEGORI
 ============================================================ */
 const categoryLabels = {
   dashboard:'Dashboard', semuaKata:'Semua Kata', kataBenda:'Kata Benda',
@@ -1045,8 +1118,8 @@ const categoryIcons = {
   kataDepan:'fa-map-pin', kataHubung:'fa-link', angka:'fa-sort-numeric-up'
 };
 const categoryColors = {
-  kataBenda:'#00d4ff', kataKerja:'#4facfe', kataKeterangan:'#00f2fe', kataSifat:'#7fdfff',
-  kataGanti:'#00d4ff', kataDepan:'#4facfe', kataHubung:'#00f2fe', angka:'#7fdfff'
+  kataBenda:'#6A5ACD', kataKerja:'#4FC3F7', kataKeterangan:'#5A4BB5', kataSifat:'#80D8FF',
+  kataGanti:'#6A5ACD', kataDepan:'#4FC3F7', kataHubung:'#5A4BB5', angka:'#80D8FF'
 };
 
 /* ============================================================
@@ -1085,7 +1158,7 @@ function showToast(message, type){
    PARTIKEL BACKGROUND
 ============================================================ */
 (function(){
-  const colors = ['rgba(0,212,255,0.22)','rgba(79,172,254,0.18)','rgba(0,242,254,0.15)'];
+  const colors = ['rgba(106,90,205,0.15)','rgba(79,195,247,0.12)','rgba(255,213,79,0.10)'];
   const frag = document.createDocumentFragment();
   for(let i=0;i<8;i++){
     const p = document.createElement('div');
@@ -1102,7 +1175,6 @@ function showToast(message, type){
   }
   document.body.appendChild(frag);
 })();
-
 /* ============================================================
    SIDEBAR
 ============================================================ */
@@ -1159,7 +1231,8 @@ function updateBadges(){
     if(w.cat && counts.hasOwnProperty(w.cat)) counts[w.cat]++;
     if(w.id !== undefined && w.id !== null) WORDS_INDEX[w.id] = idx;
   });
-  document.getElementById('badge-semuaKata').textContent = ALL_WORDS.length;
+  const elSemua = document.getElementById('badge-semuaKata');
+  if(elSemua) elSemua.textContent = ALL_WORDS.length;
   catKeys.forEach(function(k){
     const el = document.getElementById('badge-'+k);
     if(el) el.textContent = counts[k];
@@ -1203,6 +1276,43 @@ function normalizeCat(raw){
     if(compact.indexOf(k) !== -1) return CAT_ALIAS[k];
   }
   return compact;
+}
+
+/* Varian nilai kategori untuk dikirim ke DB saat insert/update gagal */
+const CAT_DB_VARIANTS = {
+  kataBenda:       ['kataBenda','noun','Noun','kata benda','Kata Benda'],
+  kataKerja:       ['kataKerja','verb','Verb','kata kerja','Kata Kerja'],
+  kataKeterangan:  ['kataKeterangan','adverb','Adverb','kata keterangan','Kata Keterangan'],
+  kataSifat:       ['kataSifat','adjective','Adjective','kata sifat','Kata Sifat'],
+  kataGanti:       ['kataGanti','pronoun','Pronoun','kata ganti','Kata Ganti'],
+  kataDepan:       ['kataDepan','preposition','Preposition','kata depan','Kata Depan'],
+  kataHubung:      ['kataHubung','conjunction','Conjunction','kata hubung','Kata Hubung'],
+  angka:           ['angka','number','Number','numeral','Numeral','Angka']
+};
+
+function detectCatField(rows){
+  if(!rows || !rows.length) return 'cat';
+  const r = rows[0];
+  if(r.cat !== undefined) return 'cat';
+  if(r.kategori !== undefined) return 'kategori';
+  if(r.category !== undefined) return 'category';
+  return 'cat';
+}
+
+function denormalizeCat(internal){
+  if(DB_CAT_FORMAT){
+    const variants = CAT_DB_VARIANTS[internal] || [];
+    if(variants.indexOf(DB_CAT_FORMAT) !== -1) return DB_CAT_FORMAT;
+  }
+  return internal;
+}
+
+function buildWordPayload(duri, indonesia, english, catInternal){
+  const field = DB_CAT_FIELD || 'cat';
+  const catVal = denormalizeCat(catInternal);
+  const p = { duri: duri, indonesia: indonesia, english: english };
+  p[field] = catVal;
+  return p;
 }
 
 function normalizeRow(row){
@@ -1249,6 +1359,12 @@ async function fetchWords(){
       }
       const rows = await res.json();
       if(!Array.isArray(rows) || rows.length === 0) break;
+      if(DB_CAT_FIELD === null && rows.length){
+        DB_CAT_FIELD = detectCatField(rows);
+        console.log('[KEDurl] Kolom kategori terdeteksi:', DB_CAT_FIELD);
+        const v = rows[0][DB_CAT_FIELD];
+        if(v !== undefined && v !== null) DB_CAT_FORMAT = String(v);
+      }
       allRows = allRows.concat(rows);
       if(rows.length < SUPABASE_BATCH) break;
       offset += rows.length;
@@ -1328,9 +1444,9 @@ async function deleteSaranFromDB(id){
   }
 }
 
-async function deleteWordFromDB(id){
+async function deleteWordFromDB(id, skipConfirm){
   try{
-    if(!confirm('Yakin ingin menghapus kata ini?')) return;
+    if(!skipConfirm && !confirm('Yakin ingin menghapus kata ini?')) return;
     isLoading = true;
     const url = SUPABASE_URL + '/rest/v1/' + SUPABASE_TABLE + '?id=eq.' + encodeURIComponent(id);
     const res = await fetch(url, {
@@ -1360,6 +1476,32 @@ async function insertWordToDB(payload){
   });
   if(!res.ok){
     const errText = await res.text();
+    if(res.status === 400 && payload && payload.cat !== undefined){
+      const base = { duri: payload.duri, indonesia: payload.indonesia, english: payload.english };
+      const internal = payload.cat;
+      const variants = CAT_DB_VARIANTS[internal] || [internal];
+      for(const v of variants){
+        for(const field of ['cat','kategori','category']){
+          const tryPayload = Object.assign({}, base);
+          tryPayload[field] = v;
+          const r2 = await fetch(url, {
+            method: 'POST',
+            headers: Object.assign({}, SB_HEADERS, { 'Prefer': 'return=representation' }),
+            body: JSON.stringify(tryPayload)
+          });
+          if(r2.ok){
+            DB_CAT_FIELD = field;
+            DB_CAT_FORMAT = v;
+            console.log('[KEDurl] Insert sukses pakai', field + '=' + v);
+            return await r2.json();
+          }
+        }
+      }
+    }
+    console.error('[KEDurl] INSERT gagal. Status:', res.status, '| Body:', errText);
+    if(res.status === 401 || res.status === 403){
+      throw new Error('RLS menolak INSERT. Buka Supabase → tabel words → RLS → tambah policy INSERT untuk anon key.');
+    }
     throw new Error('Supabase error ' + res.status + ': ' + errText);
   }
   return await res.json();
@@ -1374,6 +1516,32 @@ async function updateWordInDB(id, payload){
   });
   if(!res.ok){
     const errText = await res.text();
+    if(res.status === 400 && payload && payload.cat !== undefined){
+      const base = { duri: payload.duri, indonesia: payload.indonesia, english: payload.english };
+      const internal = payload.cat;
+      const variants = CAT_DB_VARIANTS[internal] || [internal];
+      for(const v of variants){
+        for(const field of ['cat','kategori','category']){
+          const tryPayload = Object.assign({}, base);
+          tryPayload[field] = v;
+          const r2 = await fetch(url, {
+            method: 'PATCH',
+            headers: Object.assign({}, SB_HEADERS, { 'Prefer': 'return=representation' }),
+            body: JSON.stringify(tryPayload)
+          });
+          if(r2.ok){
+            DB_CAT_FIELD = field;
+            DB_CAT_FORMAT = v;
+            console.log('[KEDurl] Update sukses pakai', field + '=' + v);
+            return await r2.json();
+          }
+        }
+      }
+    }
+    console.error('[KEDurl] UPDATE gagal. Status:', res.status, '| Body:', errText);
+    if(res.status === 401 || res.status === 403){
+      throw new Error('RLS menolak UPDATE. Buka Supabase → tabel words → RLS → tambah policy UPDATE untuk anon key.');
+    }
     throw new Error('Supabase error ' + res.status + ': ' + errText);
   }
   return await res.json();
@@ -1401,9 +1569,8 @@ function logCatSample(rows){
     );
   }catch(e){}
 }
-
 /* ============================================================
-   RENDER
+   RENDER PAGE
 ============================================================ */
 function renderPage(page){
   if(page === 'dashboard') renderDashboard();
@@ -1418,7 +1585,7 @@ function renderPage(page){
 ============================================================ */
 function renderDashboard(){
   if(!ALL_WORDS.length){
-    contentEl.innerHTML = '<div style="text-align:center;padding:60px 20px;"><div class="loading-spinner" style="width:40px;height:40px;"></div><p style="color:var(--text-muted);margin-top:16px;">Memuat data...</p><button class="page-btn" onclick="fetchWords().then(function(){renderDashboard()})" style="margin-top:12px;"><i class="fas fa-redo"></i> Muat Ulang</button></div>';
+    contentEl.innerHTML = '<div style="text-align:center;padding:60px 20px;"><div class="loading-spinner" style="width:40px;height:40px;"></div><p style="color:var(--text-muted);margin-top:16px;">Memuat data...</p><button class="page-btn" onclick="fetchWords().then(function(r){ if(r&&r.length) renderDashboard(); else showToast(\'Tidak ada data\',\'error\'); })" style="margin-top:12px;"><i class="fas fa-redo"></i> Muat Ulang</button></div>';
     return;
   }
   const totalWords = ALL_WORDS.length;
@@ -1513,7 +1680,7 @@ function renderSearchResults(results, query, container){
   }
   let html = '<div class="results-info">Ditemukan <strong>' + results.length + '</strong> kata</div>';
   results.forEach(function(w){
-    const catColor = categoryColors[w.cat] || '#00d4ff';
+    const catColor = categoryColors[w.cat] || '#6A5ACD';
     const catLabel = categoryLabels[w.cat] || w.cat || '-';
     html += '<div class="search-result-card">' +
       '<div class="sr-duri">' + highlightMatch(w.duri, query) + '</div>' +
@@ -1521,7 +1688,7 @@ function renderSearchResults(results, query, container){
       '<span class="sr-item"><span class="sr-lang">ID</span> ' + highlightMatch(w.indonesia, query) + '</span>' +
       '<span class="sr-item"><span class="sr-lang">EN</span> ' + highlightMatch(w.english, query) + '</span>' +
       '</div>' +
-      '<span class="sr-cat" style="background:' + catColor + '22;color:' + catColor + ';">' + esc(catLabel) + '</span>' +
+      '<span class="sr-cat" style="background:' + catColor + '18;color:' + catColor + ';">' + esc(catLabel) + '</span>' +
       '<button class="sr-speak" onclick="event.stopPropagation(); speakWord(\'' + sq(w.duri) + '\',\'id-ID\')" title="Dengar Duri"><i class="fas fa-volume-up"></i></button>' +
       '<button class="sr-speak" onclick="event.stopPropagation(); speakWord(\'' + sq(w.indonesia) + '\',\'id-ID\')" title="Dengar Indonesia"><i class="fas fa-volume-up" style="font-size:13px;"></i></button>' +
       '<button class="sr-speak" onclick="event.stopPropagation(); speakWord(\'' + sq(w.english) + '\',\'en-US\')" title="Dengar English"><i class="fas fa-volume-up" style="font-size:13px;"></i></button>' +
@@ -1538,7 +1705,9 @@ function highlightMatch(text, query){
   const before = text.substring(0, idx);
   const match = text.substring(idx, idx + query.length);
   const after = text.substring(idx + query.length);
-  return esc(before) + '<mark style="background:rgba(0,212,255,0.28);color:#e0f7ff;padding:0 2px;border-radius:2px;">' + esc(match) + '</mark>' + esc(after);
+  return esc(before) +
+    '<mark style="background:rgba(106,90,205,0.18);color:#333;padding:0 2px;border-radius:2px;">' +
+    esc(match) + '</mark>' + esc(after);
 }
 
 /* ============================================================
@@ -1588,14 +1757,14 @@ function renderAllWords(filterQ, filterCat){
     '<th style="width:45px;">No</th><th>Duri</th><th>Indonesia</th><th>English</th><th class="col-category">Kategori</th><th class="col-actions">Aksi</th>' +
     '</tr></thead><tbody>' +
     pageWords.map(function(w, i){
-      const catColor = categoryColors[w.cat] || '#00d4ff';
+      const catColor = categoryColors[w.cat] || '#6A5ACD';
       const catLabel = categoryLabels[w.cat] || w.cat || '-';
       return '<tr>' +
         '<td class="col-no">' + (start + i + 1) + '</td>' +
         '<td class="col-duri">' + esc(w.duri) + '</td>' +
         '<td>' + esc(w.indonesia) + '</td>' +
         '<td>' + esc(w.english) + '</td>' +
-        '<td class="col-category"><span class="cat-badge" style="background:' + catColor + '22;color:' + catColor + ';">' + esc(catLabel) + '</span></td>' +
+        '<td class="col-category"><span class="cat-badge" style="background:' + catColor + '18;color:' + catColor + ';">' + esc(catLabel) + '</span></td>' +
         '<td class="col-actions">' +
         '<button class="action-btn" onclick="showDetailById(' + w.id + ')" title="Detail"><i class="fas fa-expand-alt"></i></button>' +
         '<button class="action-btn" onclick="speakWord(\'' + sq(w.duri) + '\',\'id-ID\')" title="Ucapkan"><i class="fas fa-volume-up"></i></button>' +
@@ -1626,7 +1795,10 @@ function renderAllWords(filterQ, filterCat){
     const q = document.getElementById('all-search').value.trim().toLowerCase();
     renderAllWords(q, catFilter.value);
   });
-  inp.focus();
+  if(window._focusSearchNext){
+    inp.focus();
+    window._focusSearchNext = false;
+  }
 }
 
 function renderPagination(totalPages, filterQ, filterCat){
@@ -1705,19 +1877,22 @@ function renderCategory(category){
       else { em.style.display='none'; tb.innerHTML = renderCategoryRows(f); }
     }, 200);
   });
-  cs.focus();
+  if(window._focusSearchNext){
+    cs.focus();
+    window._focusSearchNext = false;
+  }
 }
 
 function renderCategoryRows(words){
   return words.map(function(w, i){
-    const catColor = categoryColors[w.cat] || '#00d4ff';
+    const catColor = categoryColors[w.cat] || '#6A5ACD';
     const catLabel = categoryLabels[w.cat] || w.cat || '-';
     return '<tr>' +
       '<td class="col-no">' + (i+1) + '</td>' +
       '<td class="col-duri">' + esc(w.duri) + '</td>' +
       '<td>' + esc(w.indonesia) + '</td>' +
       '<td>' + esc(w.english) + '</td>' +
-      '<td class="col-category"><span class="cat-badge" style="background:' + catColor + '22;color:' + catColor + ';">' + esc(catLabel) + '</span></td>' +
+      '<td class="col-category"><span class="cat-badge" style="background:' + catColor + '18;color:' + catColor + ';">' + esc(catLabel) + '</span></td>' +
       '<td class="col-actions">' +
       '<button class="action-btn" onclick="showDetailById(' + w.id + ')" title="Detail"><i class="fas fa-expand-alt"></i></button>' +
       '<button class="action-btn" onclick="speakWord(\'' + sq(w.duri) + '\',\'id-ID\')" title="Ucapkan"><i class="fas fa-volume-up"></i></button>' +
@@ -1731,20 +1906,20 @@ function renderCategoryRows(words){
 ============================================================ */
 function showDetail(w){
   if(!w) return;
-  const catColor = categoryColors[w.cat] || '#00d4ff';
+  const catColor = categoryColors[w.cat] || '#6A5ACD';
   const catLabel = categoryLabels[w.cat] || w.cat || '-';
 
   detailInner.innerHTML =
     '<div class="detail-lang"><div class="detail-lang-label">Duri</div><div class="detail-lang-word gold">' + esc(w.duri) + '</div></div>' +
     '<div class="detail-lang"><div class="detail-lang-label">Indonesia</div><div class="detail-lang-word">' + esc(w.indonesia) + '</div></div>' +
     '<div class="detail-lang"><div class="detail-lang-label">English</div><div class="detail-lang-word">' + esc(w.english) + '</div></div>' +
-    '<div style="text-align:center;margin:4px 0 12px;"><span class="cat-badge" style="background:' + catColor + '22;color:' + catColor + ';font-size:12px;padding:4px 14px;">' + esc(catLabel) + '</span></div>' +
+    '<div style="text-align:center;margin:4px 0 12px;"><span class="cat-badge" style="background:' + catColor + '18;color:' + catColor + ';font-size:12px;padding:4px 14px;">' + esc(catLabel) + '</span></div>' +
     '<div style="text-align:center;margin-bottom:14px;">' +
     '<button class="speak-btn" onclick="speakWord(\'' + sq(w.duri) + '\',\'id-ID\')"><i class="fas fa-volume-up"></i> Duri</button> ' +
     '<button class="speak-btn" onclick="speakWord(\'' + sq(w.indonesia) + '\',\'id-ID\')" style="margin-left:4px;"><i class="fas fa-volume-up"></i> Indonesia</button> ' +
     '<button class="speak-btn" onclick="speakWord(\'' + sq(w.english) + '\',\'en-US\')" style="margin-left:4px;"><i class="fas fa-volume-up"></i> English</button>' +
     '</div>' +
-    '<button class="detail-close danger" onclick="deleteWordFromDB(' + w.id + ');closeDetail();"><i class="fas fa-trash" style="margin-right:6px;"></i>Hapus Kata Ini</button>' +
+    '<button class="detail-close danger" onclick="window.deleteFromDetail(' + w.id + ')"><i class="fas fa-trash" style="margin-right:6px;"></i>Hapus Kata Ini</button>' +
     '<button class="detail-close" onclick="closeDetail()" style="margin-top:8px;">Tutup</button>';
 
   detailModal.classList.add('show');
@@ -1752,6 +1927,12 @@ function showDetail(w){
 
 function closeDetail(){ detailModal.classList.remove('show'); }
 detailModal.addEventListener('click', function(e){ if(e.target === detailModal) closeDetail(); });
+
+window.deleteFromDetail = async function(id){
+  if(!confirm('Yakin ingin menghapus kata ini?')) return;
+  closeDetail();
+  await deleteWordFromDB(id, true);
+};
 
 /* ============================================================
    TEXT-TO-SPEECH
@@ -1807,10 +1988,11 @@ function startVoiceSearch(){
         if(results.length === 1){
           showDetail(results[0]);
         }else if(results.length > 1){
+          window._focusSearchNext = true;
           navigateTo('semuaKata');
           setTimeout(function(){
             const inp = document.getElementById('all-search');
-            if(inp){ inp.value = transcript.trim(); inp.dispatchEvent(new Event('input')); }
+            if(inp){ inp.value = transcript.trim(); inp.dispatchEvent(new Event('input')); inp.focus(); }
           }, 100);
         }else{
           showToast('Kata "' + transcript.trim() + '" tidak ditemukan', 'error');
@@ -1874,7 +2056,6 @@ function doTranslate(){
   resultEl.classList.add('show');
   speakWord(result, to === 'en' ? 'en-US' : 'id-ID');
 }
-
 /* ============================================================
    SARAN — KOTAK SARAN
 ============================================================ */
@@ -1884,7 +2065,7 @@ function renderSaranPage(){
   contentEl.innerHTML =
   '<div class="fade-in">' +
     '<div class="saran-box">' +
-      '<h2><i class="fas fa-comment-dots" style="margin-right:8px;color:var(--gold);"></i>Kotak Saran</h2>' +
+      '<h2><i class="fas fa-comment-dots" style="margin-right:8px;color:var(--primary-dark);"></i>Kotak Saran</h2>' +
       '<p class="saran-sub">Sampaikan saran, kritik, atau masukan Anda untuk perbaikan kamus ini. Tidak perlu login.</p>' +
 
       '<div class="saran-field">' +
@@ -2016,6 +2197,7 @@ topbarAdmin.addEventListener('click', function(){
   if(ADMIN_LOGGED_IN) navigateTo('admin');
   else openAdminLogin();
 });
+window.openAdminLogin = openAdminLogin;
 
 /* ============================================================
    ADMIN — FORM TAMBAH / EDIT KATA
@@ -2051,11 +2233,16 @@ async function saveWordForm(){
   const cat = wfCat.value;
 
   if(!duri || !indonesia || !english){
-    showToast('Semua kolom harus diisi', 'error');
+    showToast('Semua kolom (Duri, Indonesia, English) harus diisi', 'error');
+    return;
+  }
+  if(duri.length > 200 || indonesia.length > 200 || english.length > 200){
+    showToast('Teks terlalu panjang (maks 200 karakter per kolom)', 'error');
     return;
   }
 
-  const payload = { duri: duri, indonesia: indonesia, english: english, cat: cat };
+  const payload = buildWordPayload(duri, indonesia, english, cat);
+  console.log('[KEDurl] Payload simpan:', payload, '| mode:', ADMIN_EDIT_ID ? 'EDIT' : 'INSERT');
 
   wordFormSave.disabled = true;
   const originalLabel = wordFormSave.textContent;
@@ -2073,8 +2260,12 @@ async function saveWordForm(){
     await fetchWords();
     renderPage(currentPage);
   }catch(error){
-    showToast('Gagal menyimpan: ' + error.message, 'error');
-    console.error('Save error:', error);
+    console.error('[KEDurl] Save error detail:', error);
+    let msg = error.message || 'Error tidak diketahui';
+    if(msg.indexOf('400') !== -1){
+      msg = 'Data ditolak server. Cek format kolom kategori (cat/kategori/category) di Supabase.';
+    }
+    showToast('Gagal menyimpan: ' + msg, 'error');
   }finally{
     wordFormSave.disabled = false;
     wordFormSave.textContent = originalLabel;
@@ -2095,6 +2286,7 @@ window.openEditWordById = function(id){
 
 /* ============================================================
    ADMIN — HALAMAN DASHBOARD ADMIN
+   (dengan menu interaktif yang dapat diklik)
 ============================================================ */
 function renderAdmin(){
   if(!ADMIN_LOGGED_IN){
@@ -2116,9 +2308,22 @@ function renderAdmin(){
   });
   const preview = sorted.slice(0, 30);
 
+  // Build menu items
+  const menuItems = [
+    { key: 'semuaKata', label: 'Semua Kata', icon: 'fa-book', desc: 'Lihat dan kelola seluruh kosakata', count: totalWords },
+    { key: 'kataBenda', label: 'Kata Benda', icon: 'fa-cube', desc: 'Noun / kata benda', count: counts.kataBenda },
+    { key: 'kataKerja', label: 'Kata Kerja', icon: 'fa-running', desc: 'Verb / kata kerja', count: counts.kataKerja },
+    { key: 'kataKeterangan', label: 'Kata Keterangan', icon: 'fa-feather-alt', desc: 'Adverb / kata keterangan', count: counts.kataKeterangan },
+    { key: 'kataSifat', label: 'Kata Sifat', icon: 'fa-palette', desc: 'Adjective / kata sifat', count: counts.kataSifat },
+    { key: 'kataGanti', label: 'Kata Ganti', icon: 'fa-user-friends', desc: 'Pronoun / kata ganti', count: counts.kataGanti },
+    { key: 'kataDepan', label: 'Kata Depan', icon: 'fa-map-pin', desc: 'Preposition / kata depan', count: counts.kataDepan },
+    { key: 'kataHubung', label: 'Kata Hubung', icon: 'fa-link', desc: 'Conjunction / kata hubung', count: counts.kataHubung },
+    { key: 'angka', label: 'Angka', icon: 'fa-sort-numeric-up', desc: 'Numbers / angka', count: counts.angka }
+  ];
+
   contentEl.innerHTML = '<div class="fade-in">' +
     '<div class="admin-hero">' +
-    '<h2><i class="fas fa-user-shield" style="margin-right:8px;color:var(--gold);"></i>Panel Admin</h2>' +
+    '<h2><i class="fas fa-user-shield" style="margin-right:8px;color:var(--primary-dark);"></i>Panel Admin</h2>' +
     '<p>Kelola daftar kata kamus dan saran dari pengunjung.</p>' +
     '<div class="admin-session-info">' +
     '<span><i class="fas fa-unlock" style="margin-right:4px;"></i> Sesi aktif</span>' +
@@ -2135,6 +2340,24 @@ function renderAdmin(){
     }).join('') +
     '</div>' +
 
+    // Menu interaktif
+    '<div class="admin-hero" style="margin-top:20px; padding:0; overflow:hidden;">' +
+    '<div style="padding:16px 20px; border-bottom:1px solid var(--border-muted); font-weight:600; font-size:14px; color:var(--text-dark);"><i class="fas fa-list" style="margin-right:8px;color:var(--primary);"></i>Menu Kelola Kata</div>' +
+    menuItems.map(function(item){
+      return '<div class="admin-nav-item" data-menu-key="' + item.key + '">' +
+        '<div class="nav-icon"><i class="fas ' + item.icon + '"></i></div>' +
+        '<div class="nav-info">' +
+          '<div class="nav-title">' + item.label + '</div>' +
+          '<div class="nav-desc">' + item.desc + '</div>' +
+        '</div>' +
+        '<div class="nav-actions">' +
+          '<span class="nav-count">' + item.count + '</span>' +
+          '<button class="nav-edit-btn" onclick="event.stopPropagation(); openCategoryEditor(\'' + item.key + '\')"><i class="fas fa-edit"></i> Edit</button>' +
+        '</div>' +
+      '</div>';
+    }).join('') +
+    '</div>' +
+
     '<div class="admin-toolbar">' +
     '<div style="font-size:12px;color:var(--text-muted);">30 kata terbaru (id tertinggi)</div>' +
     '<button class="admin-add-btn" id="admin-add-btn"><i class="fas fa-plus"></i> Tambah Kata</button>' +
@@ -2144,16 +2367,16 @@ function renderAdmin(){
     '<th style="width:45px;">No</th><th>Duri</th><th>Indonesia</th><th>English</th><th class="col-category">Kategori</th><th class="col-actions">Aksi</th>' +
     '</tr></thead><tbody>' +
     (preview.length ? preview.map(function(w, i){
-      const catColor = categoryColors[w.cat] || '#00d4ff';
+      const catColor = categoryColors[w.cat] || '#6A5ACD';
       const catLabel = categoryLabels[w.cat] || w.cat || '-';
       return '<tr>' +
         '<td class="col-no">' + (i + 1) + '</td>' +
         '<td class="col-duri">' + esc(w.duri) + '</td>' +
         '<td>' + esc(w.indonesia) + '</td>' +
         '<td>' + esc(w.english) + '</td>' +
-        '<td class="col-category"><span class="cat-badge" style="background:' + catColor + '22;color:' + catColor + ';">' + esc(catLabel) + '</span></td>' +
+        '<td class="col-category"><span class="cat-badge" style="background:' + catColor + '18;color:' + catColor + ';">' + esc(catLabel) + '</span></td>' +
         '<td class="col-actions">' +
-        '<button class="action-btn edit" onclick="openEditWordById(' + w.id + ')" title="Edit"><i class="fas fa-edit"></i></button>' +
+        '<button class="action-btn edit" onclick="openEditWordById(' + w.id + ')" title="Edit kata"><i class="fas fa-edit"></i></button>' +
         '<button class="action-btn" onclick="speakWord(\'' + sq(w.duri) + '\',\'id-ID\')" title="Ucapkan"><i class="fas fa-volume-up"></i></button>' +
         '<button class="action-btn delete" onclick="deleteWordFromDB(' + w.id + ')" title="Hapus"><i class="fas fa-trash"></i></button>' +
         '</td></tr>';
@@ -2161,7 +2384,7 @@ function renderAdmin(){
     '</tbody></table></div>' +
 
     '<div class="admin-hero" style="margin-top:24px;">' +
-    '<h2><i class="fas fa-comment-dots" style="margin-right:8px;color:var(--gold);"></i>Saran Masuk</h2>' +
+    '<h2><i class="fas fa-comment-dots" style="margin-right:8px;color:var(--primary-dark);"></i>Saran Masuk</h2>' +
     '<p>Daftar saran, kritik, dan masukan dari pengunjung.</p>' +
     '</div>' +
 
@@ -2184,6 +2407,20 @@ function renderAdmin(){
     '</div>' +
     '</div>';
 
+  // Event: klik menu item -> expand/collapse -> tampilkan tombol edit
+  document.querySelectorAll('.admin-nav-item').forEach(function(el){
+    el.addEventListener('click', function(e){
+      // Jika yang diklik adalah tombol edit, jangan toggle
+      if (e.target.closest('.nav-edit-btn')) return;
+      // Toggle expanded
+      const isExpanded = el.classList.contains('expanded');
+      // Tutup semua dulu
+      document.querySelectorAll('.admin-nav-item').forEach(function(item){ item.classList.remove('expanded'); });
+      // Buka yang diklik jika sebelumnya tertutup
+      if (!isExpanded) el.classList.add('expanded');
+    });
+  });
+
   const addBtn = document.getElementById('admin-add-btn');
   if(addBtn) addBtn.addEventListener('click', function(){ openWordForm('add'); });
 
@@ -2196,6 +2433,70 @@ function renderAdmin(){
     navigateTo('dashboard');
   });
 }
+
+// Fungsi untuk membuka editor kategori (dipanggil dari tombol edit di menu admin)
+window.openCategoryEditor = function(categoryKey){
+  // Filter kata berdasarkan kategori
+  let words = ALL_WORDS;
+  if (categoryKey !== 'semuaKata') {
+    words = ALL_WORDS.filter(function(w){ return w.cat === categoryKey; });
+  }
+
+  if (words.length === 0) {
+    showToast('Tidak ada kata dalam kategori ini', 'info');
+    return;
+  }
+
+  // Tampilkan modal daftar kata untuk diedit
+  const catLabel = categoryLabels[categoryKey] || categoryKey;
+  let html = '<div style="max-height:70vh;overflow-y:auto;">';
+  html += '<div style="padding:0 0 12px 0;font-size:13px;color:var(--text-muted);">' + words.length + ' kata dalam kategori <strong style="color:var(--primary);">' + catLabel + '</strong></div>';
+  html += '<table class="word-table" style="min-width:100%;"><thead><tr><th>Duri</th><th>Indonesia</th><th>English</th><th style="width:90px;text-align:center;">Aksi</th></tr></thead><tbody>';
+  words.slice(0, 100).forEach(function(w) {
+    html += '<tr>' +
+      '<td class="col-duri">' + esc(w.duri) + '</td>' +
+      '<td>' + esc(w.indonesia) + '</td>' +
+      '<td>' + esc(w.english) + '</td>' +
+      '<td style="text-align:center; white-space:nowrap;">' +
+        '<button class="action-btn edit" onclick="openEditWordById(' + w.id + '); closeCategoryEditor();" title="Edit"><i class="fas fa-edit"></i></button>' +
+        '<button class="action-btn delete" onclick="deleteWordFromDB(' + w.id + ').then(function(){ closeCategoryEditor(); })" title="Hapus"><i class="fas fa-trash"></i></button>' +
+      '</td>' +
+    '</tr>';
+  });
+  html += '</tbody></table>';
+  if (words.length > 100) {
+    html += '<div style="padding:12px 0;text-align:center;font-size:12px;color:var(--text-muted);">Menampilkan 100 dari ' + words.length + ' kata. Gunakan pencarian di halaman Semua Kata untuk melihat semuanya.</div>';
+  }
+  html += '</div>';
+  html += '<div style="margin-top:16px;text-align:right;"><button class="admin-btn cancel" onclick="closeCategoryEditor()">Tutup</button></div>';
+
+  // Buat modal sementara
+  let modal = document.getElementById('category-editor-modal');
+  if (!modal) {
+    modal = document.createElement('div');
+    modal.id = 'category-editor-modal';
+    modal.style.cssText = 'position:fixed;inset:0;z-index:96;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.4);backdrop-filter:blur(6px);opacity:0;pointer-events:none;transition:opacity .3s;';
+    modal.innerHTML = '<div style="background:#fff;border:1px solid var(--border-soft);border-radius:18px;padding:26px;max-width:700px;width:92%;max-height:90vh;overflow-y:auto;transform:scale(.92);transition:transform .3s;box-shadow:0 20px 60px rgba(0,0,0,0.18);" id="category-editor-content"></div>';
+    document.body.appendChild(modal);
+    modal.addEventListener('click', function(e){ if(e.target === modal) closeCategoryEditor(); });
+  }
+  const content = document.getElementById('category-editor-content');
+  content.innerHTML = '<div class="word-form-title" style="margin-bottom:16px;"><i class="fas fa-edit" style="margin-right:8px;color:var(--primary);"></i>Edit Kategori: ' + catLabel + '</div>' + html;
+
+  modal.style.opacity = '1';
+  modal.style.pointerEvents = 'all';
+  content.style.transform = 'scale(1)';
+};
+
+window.closeCategoryEditor = function(){
+  const modal = document.getElementById('category-editor-modal');
+  if (modal) {
+    modal.style.opacity = '0';
+    modal.style.pointerEvents = 'none';
+    const content = document.getElementById('category-editor-content');
+    if (content) content.style.transform = 'scale(.92)';
+  }
+};
 
 function formatDate(iso){
   if(!iso) return '';
@@ -2238,6 +2539,7 @@ document.addEventListener('keydown', function(e){
     if(detailModal.classList.contains('show')) closeDetail();
     if(adminLoginModal.classList.contains('show')) closeAdminLogin();
     if(wordFormModal.classList.contains('show')) closeWordForm();
+    if(document.getElementById('category-editor-modal')) closeCategoryEditor();
   }
 });
 
@@ -2248,7 +2550,10 @@ document.addEventListener('keydown', function(e){
   contentEl.innerHTML = '<div style="text-align:center;padding:80px 20px;"><div class="loading-spinner" style="width:40px;height:40px;margin:0 auto;"></div><p style="color:var(--text-muted);margin-top:16px;font-size:14px;">Menghubungkan ke server...</p></div>';
   const words = await fetchWords();
   await fetchSaran();
-  if(words && words.length) showToast('Berhasil memuat ' + words.length + ' kata', 'success');
+  if(words && words.length){
+    showToast('Berhasil memuat ' + words.length + ' kata', 'success');
+    console.log('[KEDurl] DB_CAT_FIELD =', DB_CAT_FIELD, '| DB_CAT_FORMAT =', DB_CAT_FORMAT);
+  }
   renderPage(currentPage);
 })();
 </script>
