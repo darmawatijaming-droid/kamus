@@ -72,16 +72,16 @@
   --bg-deep:#f5f5f5;
   --bg-forest:#ffffff;
   --card-glass:rgba(255,255,255,0.92);
-  --primary:#6A5ACD; /* Ungu lembut */
+  --primary:#6A5ACD;
   --primary-light:#8A7DDB;
   --primary-dark:#5A4BB5;
-  --secondary:#4FC3F7; /* Biru muda */
+  --secondary:#4FC3F7;
   --secondary-light:#80D8FF;
   --secondary-dark:#29B6F6;
-  --accent:#FFD54F; /* Kuning cerah */
+  --accent:#FFD54F;
   --accent-dark:#FFC107;
-  --text-dark:#333333; /* Hitam keabu-abuan */
-  --text-muted:#555555; /* Abu gelap */
+  --text-dark:#333333;
+  --text-muted:#555555;
   --border-soft:#e0e0e0;
   --border-muted:#eeeeee;
   --sidebar-w:270px;
@@ -1057,6 +1057,7 @@ let isLoading = false;
 
 let ADMIN_LOGGED_IN = false;
 let ADMIN_EDIT_ID = null;
+let _ACTIVE_CATEGORY_EDITOR = null; // kategori yang sedang diedit via modal (null = tidak aktif)
 
 let ALL_SARAN = [];
 
@@ -2258,7 +2259,15 @@ async function saveWordForm(){
     }
     closeWordForm();
     await fetchWords();
-    renderPage(currentPage);
+
+    // Jika sedang mengedit dari modal "Edit Kategori", tetap di modal tersebut
+    if(_ACTIVE_CATEGORY_EDITOR !== null){
+      const catKey = _ACTIVE_CATEGORY_EDITOR;
+      renderPage(currentPage);          // refresh dashboard admin di belakang
+      openCategoryEditor(catKey);       // buka ulang modal editor kategori (data fresh)
+    }else{
+      renderPage(currentPage);
+    }
   }catch(error){
     console.error('[KEDurl] Save error detail:', error);
     let msg = error.message || 'Error tidak diketahui';
@@ -2447,6 +2456,9 @@ window.openCategoryEditor = function(categoryKey){
     return;
   }
 
+  // Simpan state kategori aktif agar tetap terbuka setelah edit
+  _ACTIVE_CATEGORY_EDITOR = categoryKey;
+
   // Tampilkan modal daftar kata untuk diedit
   const catLabel = categoryLabels[categoryKey] || categoryKey;
   let html = '<div style="max-height:70vh;overflow-y:auto;">';
@@ -2458,7 +2470,8 @@ window.openCategoryEditor = function(categoryKey){
       '<td>' + esc(w.indonesia) + '</td>' +
       '<td>' + esc(w.english) + '</td>' +
       '<td style="text-align:center; white-space:nowrap;">' +
-        '<button class="action-btn edit" onclick="openEditWordById(' + w.id + '); closeCategoryEditor();" title="Edit"><i class="fas fa-edit"></i></button>' +
+        // TIDAK memanggil closeCategoryEditor() agar state _ACTIVE_CATEGORY_EDITOR tetap tersimpan
+        '<button class="action-btn edit" onclick="openEditWordById(' + w.id + '); hideCategoryEditorForForm();" title="Edit"><i class="fas fa-edit"></i></button>' +
         '<button class="action-btn delete" onclick="deleteWordFromDB(' + w.id + ').then(function(){ closeCategoryEditor(); })" title="Hapus"><i class="fas fa-trash"></i></button>' +
       '</td>' +
     '</tr>';
@@ -2468,7 +2481,10 @@ window.openCategoryEditor = function(categoryKey){
     html += '<div style="padding:12px 0;text-align:center;font-size:12px;color:var(--text-muted);">Menampilkan 100 dari ' + words.length + ' kata. Gunakan pencarian di halaman Semua Kata untuk melihat semuanya.</div>';
   }
   html += '</div>';
-  html += '<div style="margin-top:16px;text-align:right;"><button class="admin-btn cancel" onclick="closeCategoryEditor()">Tutup</button></div>';
+  html += '<div style="margin-top:16px;display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap;">' +
+    '<button class="admin-btn cancel" onclick="closeCategoryEditor(true)" style="display:flex;align-items:center;gap:6px;flex:0 0 auto;"><i class="fas fa-chevron-left"></i> Kembali ke Panel Admin</button>' +
+    '<button class="admin-btn cancel" onclick="closeCategoryEditor()">Tutup</button>' +
+  '</div>';
 
   // Buat modal sementara
   let modal = document.getElementById('category-editor-modal');
@@ -2488,13 +2504,32 @@ window.openCategoryEditor = function(categoryKey){
   content.style.transform = 'scale(1)';
 };
 
-window.closeCategoryEditor = function(){
+// Sembunyikan modal editor kategori untuk sementara agar tidak menumpuk dengan form edit
+// TIDAK mereset _ACTIVE_CATEGORY_EDITOR
+window.hideCategoryEditorForForm = function(){
   const modal = document.getElementById('category-editor-modal');
   if (modal) {
     modal.style.opacity = '0';
     modal.style.pointerEvents = 'none';
     const content = document.getElementById('category-editor-content');
     if (content) content.style.transform = 'scale(.92)';
+  }
+};
+
+window.closeCategoryEditor = function(backToAdmin){
+  const modal = document.getElementById('category-editor-modal');
+  if (modal) {
+    modal.style.opacity = '0';
+    modal.style.pointerEvents = 'none';
+    const content = document.getElementById('category-editor-content');
+    if (content) content.style.transform = 'scale(.92)';
+  }
+  // Reset state kategori aktif
+  _ACTIVE_CATEGORY_EDITOR = null;
+  // Jika tombol "Kembali ke Panel Admin" ditekan, pastikan halaman admin dirender ulang
+  if(backToAdmin === true){
+    renderPage('admin');
+    window.scrollTo({top:0, behavior:'smooth'});
   }
 };
 
